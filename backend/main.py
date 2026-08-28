@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from config import settings
@@ -49,15 +49,30 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+@app.middleware("http")
+async def custom_cors_middleware(request: Request, call_next):
+    if request.method == "OPTIONS":
+        response = Response(status_code=204)
+    else:
+        try:
+            response = await call_next(request)
+        except Exception as exc:
+            response = Response(content=f'{{"detail": "{str(exc)}"}}', status_code=500, media_type="application/json")
+
+    origin = request.headers.get("origin", "*")
+    response.headers["Access-Control-Allow-Origin"] = origin
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    response.headers["Access-Control-Expose-Headers"] = "*"
+    response.headers["Access-Control-Max-Age"] = "86400"
+    return response
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"^https?://.*",
     allow_origins=["*"],
     allow_credentials=False,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["*"],
-    max_age=86400,
 )
 
 @app.get("/health", tags=["System"])
