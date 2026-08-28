@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from sqlalchemy import select, delete
 from database import async_session_factory
-from models import RecoveryCase, AuditLog, CaseType
+from models import RecoveryCase, Diagnosis, Decision, Execution, Outcome, AuditLog, CaseType
 from datagen.generator import export_and_print_dataset
 
 async def load_synthetic_batch_into_db(dataset_path: str = None, clear_existing: bool = False) -> int:
@@ -27,6 +27,10 @@ async def load_synthetic_batch_into_db(dataset_path: str = None, clear_existing:
 
     async with async_session_factory() as session:
         if clear_existing:
+            await session.execute(delete(Outcome))
+            await session.execute(delete(Execution))
+            await session.execute(delete(Decision))
+            await session.execute(delete(Diagnosis))
             await session.execute(delete(AuditLog))
             await session.execute(delete(RecoveryCase))
             await session.commit()
