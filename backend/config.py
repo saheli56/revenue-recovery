@@ -2,6 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Optional
 
 class Settings(BaseSettings):
+    ENVIRONMENT: str = "development"
     DATABASE_URL: str = "sqlite+aiosqlite:///./recovery.db"
     ANTHROPIC_API_KEY: Optional[str] = None
     RAZORPAY_KEY_ID: Optional[str] = "rzp_test_mock_key"
