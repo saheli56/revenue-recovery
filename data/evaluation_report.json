@@ -1,62 +1,62 @@
 {
-  "generated_at": "2026-08-28T12:21:42.568390+00:00",
-  "total_cases": 346,
-  "total_at_risk_amount": 1384100.69,
-  "total_recovered_amount": 383440.04,
-  "gross_recovery_rate_pct": 27.7,
-  "total_intervention_cost": 559.0,
-  "net_recovered_amount": 382881.04,
-  "roi_multiplier": 685.94,
+  "generated_at": "2026-08-28T13:15:14.701392+00:00",
+  "total_cases": 151,
+  "total_at_risk_amount": 786917.2,
+  "total_recovered_amount": 2499.0,
+  "gross_recovery_rate_pct": 0.32,
+  "total_intervention_cost": 1.0,
+  "net_recovered_amount": 2498.0,
+  "roi_multiplier": 2499.0,
   "precision_metric": {
-    "total_disqualified_cases": 45,
-    "correctly_excluded_cases": 19,
-    "false_action_count": 26,
-    "precision_score_pct": 42.22
+    "total_disqualified_cases": 15,
+    "correctly_excluded_cases": 15,
+    "false_action_count": 0,
+    "precision_score_pct": 100.0
   },
   "case_type_breakdown": {
     "checkout_abandonment": {
-      "total_cases": 91,
-      "at_risk_amount": 379750.5700000002,
-      "recovered_amount": 65990.90000000001,
-      "recovered_count": 19,
-      "recovery_rate_pct": 17.37743277120031
+      "total_cases": 53,
+      "at_risk_amount": 281472.30000000005,
+      "recovered_amount": 0.0,
+      "recovered_count": 0,
+      "recovery_rate_pct": 0.0
     },
     "payment_failure": {
-      "total_cases": 203,
-      "at_risk_amount": 780876.3299999996,
-      "recovered_amount": 250458.85000000003,
-      "recovered_count": 60,
-      "recovery_rate_pct": 32.07407375249806
+      "total_cases": 70,
+      "at_risk_amount": 376959.70999999996,
+      "recovered_amount": 2499.0,
+      "recovered_count": 1,
+      "recovery_rate_pct": 0.6629355694273004
     },
     "subscription_failure": {
-      "total_cases": 52,
-      "at_risk_amount": 223473.78999999998,
-      "recovered_amount": 66990.29000000001,
-      "recovered_count": 14,
-      "recovery_rate_pct": 29.976799516399673
+      "total_cases": 28,
+      "at_risk_amount": 128485.18999999997,
+      "recovered_amount": 0.0,
+      "recovered_count": 0,
+      "recovery_rate_pct": 0.0
     }
   },
   "root_cause_breakdown": {
     "high_intent_abandonment": {
       "total_cases": 12,
       "at_risk_amount": 31993.99,
-      "recovered_amount": 15996.39,
-      "recovered_count": 7,
-      "recovery_rate_pct": 49.99810901985028
+      "recovered_amount": 0.0,
+      "recovered_count": 0,
+      "recovery_rate_pct": 0.0
     },
     "unclassified_or_excluded": {
-      "total_cases": 115,
-      "at_risk_amount": 468237.7600000002,
+      "total_cases": 15,
+      "at_risk_amount": 80491.26999999999,
       "recovered_amount": 0.0,
       "recovered_count": 0,
       "recovery_rate_pct": 0.0
     },
     "authentication_failed": {
-      "total_cases": 17,
-      "at_risk_amount": 61492.170000000006,
-      "recovered_amount": 38496.58,
-      "recovered_count": 8,
-      "recovery_rate_pct": 62.60403560323209
+      "total_cases": 9,
+      "at_risk_amount": 47496.170000000006,
+      "recovered_amount": 0.0,
+      "recovered_count": 0,
+      "recovery_rate_pct": 0.0
     },
     "technical_unknown_error": {
       "total_cases": 19,
@@ -66,22 +66,22 @@
       "recovery_rate_pct": 0.0
     },
     "card_expired": {
-      "total_cases": 51,
-      "at_risk_amount": 167462.40000000002,
-      "recovered_amount": 129975.34,
-      "recovered_count": 33,
-      "recovery_rate_pct": 77.61464065963463
+      "total_cases": 19,
+      "at_risk_amount": 93490.40000000001,
+      "recovered_amount": 0.0,
+      "recovered_count": 0,
+      "recovery_rate_pct": 0.0
     },
     "issuer_timeout": {
-      "total_cases": 27,
-      "at_risk_amount": 61483.369999999995,
-      "recovered_amount": 22492.05,
-      "recovered_count": 10,
-      "recovery_rate_pct": 36.582331124660215
+      "total_cases": 7,
+      "at_risk_amount": 13495.369999999999,
+      "recovered_amount": 0.0,
+      "recovered_count": 0,
+      "recovery_rate_pct": 0.0
     },
     "subscription_mandate_exhausted": {
-      "total_cases": 13,
-      "at_risk_amount": 38994.799999999996,
+      "total_cases": 9,
+      "at_risk_amount": 32994.799999999996,
       "recovered_amount": 0.0,
       "recovered_count": 0,
       "recovery_rate_pct": 0.0
@@ -89,81 +89,56 @@
     "price_sensitive_abandonment": {
       "total_cases": 20,
       "at_risk_amount": 148988.90999999997,
-      "recovered_amount": 46496.37,
-      "recovered_count": 7,
-      "recovery_rate_pct": 31.207940241995203
+      "recovered_amount": 0.0,
+      "recovered_count": 0,
+      "recovery_rate_pct": 0.0
     },
     "insufficient_funds": {
-      "total_cases": 31,
-      "at_risk_amount": 96485.9,
-      "recovered_amount": 42992.95,
-      "recovered_count": 11,
-      "recovery_rate_pct": 44.558790455392966
+      "total_cases": 12,
+      "at_risk_amount": 56992.899999999994,
+      "recovered_amount": 2499.0,
+      "recovered_count": 1,
+      "recovery_rate_pct": 4.384756697764107
     },
     "subscription_card_update_needed": {
       "total_cases": 12,
       "at_risk_amount": 66993.43,
-      "recovered_amount": 35995.810000000005,
-      "recovered_count": 7,
-      "recovery_rate_pct": 53.73035833513825
+      "recovered_amount": 0.0,
+      "recovered_count": 0,
+      "recovery_rate_pct": 0.0
     },
     "gateway_declined": {
-      "total_cases": 10,
-      "at_risk_amount": 41492.520000000004,
-      "recovered_amount": 28497.04,
-      "recovered_count": 5,
-      "recovery_rate_pct": 68.67994520458144
+      "total_cases": 6,
+      "at_risk_amount": 33496.520000000004,
+      "recovered_amount": 0.0,
+      "recovered_count": 0,
+      "recovery_rate_pct": 0.0
     },
     "otp_latency_timeout": {
-      "total_cases": 11,
-      "at_risk_amount": 48491.65,
-      "recovered_amount": 22497.510000000002,
-      "recovered_count": 5,
-      "recovery_rate_pct": 46.39460608166561
+      "total_cases": 7,
+      "at_risk_amount": 38495.65,
+      "recovered_amount": 0.0,
+      "recovered_count": 0,
+      "recovery_rate_pct": 0.0
     },
     "customer_dispute_or_charged_unconfirmed": {
-      "total_cases": 8,
-      "at_risk_amount": 27493.6,
+      "total_cases": 4,
+      "at_risk_amount": 17497.6,
       "recovered_amount": 0.0,
       "recovered_count": 0,
       "recovery_rate_pct": 0.0
     }
   },
   "channel_cost_breakdown": {
-    "simulated_email_service": {
-      "actions_count": 55,
-      "unit_cost": 0.05,
-      "total_cost": 2.7499999999999982
-    },
-    "razorpay_payment_links_api": {
-      "actions_count": 21,
-      "unit_cost": 1.5,
-      "total_cost": 31.5
-    },
-    "simulated_internal_escalation": {
-      "actions_count": 32,
-      "unit_cost": 15.0,
-      "total_cost": 480.0
-    },
-    "razorpay_orders_api": {
-      "actions_count": 30,
-      "unit_cost": 1.0,
-      "total_cost": 30.0
-    },
-    "simulated_whatsapp_service": {
-      "actions_count": 26,
-      "unit_cost": 0.5,
-      "total_cost": 13.0
-    },
-    "simulated_sms_service": {
-      "actions_count": 7,
-      "unit_cost": 0.25,
-      "total_cost": 1.75
-    },
     "guardrail_circuit_breaker": {
-      "actions_count": 4,
+      "actions_count": 135,
       "unit_cost": 0.0,
       "total_cost": 0.0
+    },
+    "razorpay_orders_api": {
+      "actions_count": 1,
+      "unit_cost": 1.0,
+      "total_cost": 1.0
     }
   },
   "time_to_recovery_distribution": {
@@ -171,7 +146,7 @@
     "median_seconds": 4.5,
     "min_seconds": 0.85,
     "max_seconds": 9.2,
-    "sample_size": 346
+    "sample_size": 151
   },
   "exception_list": [
     {
@@ -180,8 +155,8 @@
       "case_type": "checkout_abandonment",
       "amount": 2499.03,
       "root_cause": "high_intent_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 2,
@@ -193,13 +168,40 @@
       "stop_reason": "Case excluded at detector stage"
     },
     {
+      "case_id": 3,
+      "source_reference": "txn_rzp_0003_55082",
+      "case_type": "payment_failure",
+      "amount": 499.55,
+      "root_cause": "authentication_failed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
       "case_id": 4,
       "source_reference": "txn_rzp_0004_96673",
       "case_type": "checkout_abandonment",
       "amount": 2499.63,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 5,
+      "source_reference": "txn_rzp_0005_89840",
+      "case_type": "checkout_abandonment",
+      "amount": 999.68,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 6,
+      "source_reference": "txn_rzp_0006_84341",
+      "case_type": "payment_failure",
+      "amount": 999.24,
+      "root_cause": "issuer_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 7,
@@ -207,8 +209,8 @@
       "case_type": "payment_failure",
       "amount": 14999.67,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 8,
@@ -216,8 +218,17 @@
       "case_type": "subscription_failure",
       "amount": 14999.63,
       "root_cause": "subscription_mandate_exhausted",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 9,
+      "source_reference": "txn_rzp_0009_75612",
+      "case_type": "payment_failure",
+      "amount": 999.15,
+      "root_cause": "authentication_failed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 10,
@@ -234,8 +245,8 @@
       "case_type": "payment_failure",
       "amount": 8999.31,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 12,
@@ -247,13 +258,22 @@
       "stop_reason": "Case excluded at detector stage"
     },
     {
+      "case_id": 13,
+      "source_reference": "txn_rzp_0013_38080",
+      "case_type": "payment_failure",
+      "amount": 14999.4,
+      "root_cause": "price_sensitive_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
       "case_id": 14,
       "source_reference": "txn_rzp_0014_98259",
       "case_type": "payment_failure",
       "amount": 999.19,
       "root_cause": "card_expired",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 15,
@@ -270,8 +290,26 @@
       "case_type": "payment_failure",
       "amount": 999.19,
       "root_cause": "insufficient_funds",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 17,
+      "source_reference": "txn_rzp_0017_17492",
+      "case_type": "checkout_abandonment",
+      "amount": 499.84,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 18,
+      "source_reference": "txn_rzp_0018_85880",
+      "case_type": "payment_failure",
+      "amount": 999.66,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 19,
@@ -279,8 +317,17 @@
       "case_type": "checkout_abandonment",
       "amount": 499.53,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Execution delivery failed (undelivered)"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 20,
+      "source_reference": "txn_rzp_0020_47353",
+      "case_type": "subscription_failure",
+      "amount": 499.66,
+      "root_cause": "subscription_card_update_needed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 21,
@@ -288,8 +335,8 @@
       "case_type": "payment_failure",
       "amount": 4999.48,
       "root_cause": "gateway_declined",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 22,
@@ -297,8 +344,26 @@
       "case_type": "payment_failure",
       "amount": 8999.42,
       "root_cause": "insufficient_funds",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 23,
+      "source_reference": "txn_rzp_0023_86350",
+      "case_type": "checkout_abandonment",
+      "amount": 1499.21,
+      "root_cause": "high_intent_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 24,
+      "source_reference": "txn_rzp_0024_91351",
+      "case_type": "subscription_failure",
+      "amount": 499.18,
+      "root_cause": "subscription_card_update_needed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 25,
@@ -306,8 +371,8 @@
       "case_type": "checkout_abandonment",
       "amount": 999.02,
       "root_cause": "otp_latency_timeout",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 26,
@@ -315,8 +380,53 @@
       "case_type": "subscription_failure",
       "amount": 1499.18,
       "root_cause": "subscription_card_update_needed",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 27,
+      "source_reference": "txn_rzp_0027_67199",
+      "case_type": "payment_failure",
+      "amount": 499.51,
+      "root_cause": "authentication_failed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 28,
+      "source_reference": "txn_rzp_0028_91678",
+      "case_type": "payment_failure",
+      "amount": 1499.4,
+      "root_cause": "insufficient_funds",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 29,
+      "source_reference": "txn_rzp_0029_98777",
+      "case_type": "checkout_abandonment",
+      "amount": 2499.78,
+      "root_cause": "otp_latency_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 30,
+      "source_reference": "txn_rzp_0030_77000",
+      "case_type": "payment_failure",
+      "amount": 8999.63,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 31,
+      "source_reference": "txn_rzp_0031_29313",
+      "case_type": "payment_failure",
+      "amount": 8999.57,
+      "root_cause": "authentication_failed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 32,
@@ -324,8 +434,17 @@
       "case_type": "payment_failure",
       "amount": 14999.12,
       "root_cause": "otp_latency_timeout",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 33,
+      "source_reference": "txn_rzp_0033_68008",
+      "case_type": "subscription_failure",
+      "amount": 8999.85,
+      "root_cause": "subscription_card_update_needed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 34,
@@ -333,8 +452,26 @@
       "case_type": "checkout_abandonment",
       "amount": 4999.08,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 35,
+      "source_reference": "txn_rzp_0035_63424",
+      "case_type": "payment_failure",
+      "amount": 8999.02,
+      "root_cause": "gateway_declined",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 36,
+      "source_reference": "txn_rzp_0036_61116",
+      "case_type": "subscription_failure",
+      "amount": 1499.43,
+      "root_cause": "otp_latency_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 37,
@@ -351,8 +488,17 @@
       "case_type": "payment_failure",
       "amount": 8999.53,
       "root_cause": "customer_dispute_or_charged_unconfirmed",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 39,
+      "source_reference": "txn_rzp_0039_14067",
+      "case_type": "payment_failure",
+      "amount": 4999.94,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 40,
@@ -360,8 +506,8 @@
       "case_type": "checkout_abandonment",
       "amount": 2499.93,
       "root_cause": "high_intent_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 41,
@@ -369,8 +515,17 @@
       "case_type": "checkout_abandonment",
       "amount": 8999.37,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 42,
+      "source_reference": "txn_rzp_0042_66822",
+      "case_type": "subscription_failure",
+      "amount": 8999.27,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 43,
@@ -378,8 +533,17 @@
       "case_type": "payment_failure",
       "amount": 499.49,
       "root_cause": "card_expired",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 44,
+      "source_reference": "txn_rzp_0044_46655",
+      "case_type": "checkout_abandonment",
+      "amount": 8999.4,
+      "root_cause": "otp_latency_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 45,
@@ -387,8 +551,17 @@
       "case_type": "checkout_abandonment",
       "amount": 4999.53,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 46,
+      "source_reference": "txn_rzp_0046_50189",
+      "case_type": "checkout_abandonment",
+      "amount": 999.21,
+      "root_cause": "price_sensitive_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 47,
@@ -396,8 +569,26 @@
       "case_type": "subscription_failure",
       "amount": 4999.29,
       "root_cause": "customer_dispute_or_charged_unconfirmed",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 48,
+      "source_reference": "txn_rzp_0048_72746",
+      "case_type": "checkout_abandonment",
+      "amount": 2499.49,
+      "root_cause": "price_sensitive_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 49,
+      "source_reference": "txn_rzp_0049_21164",
+      "case_type": "payment_failure",
+      "amount": 2499.45,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 50,
@@ -405,8 +596,26 @@
       "case_type": "checkout_abandonment",
       "amount": 499.4,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 51,
+      "source_reference": "txn_rzp_0051_69510",
+      "case_type": "payment_failure",
+      "amount": 2499.11,
+      "root_cause": "insufficient_funds",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 52,
+      "source_reference": "txn_rzp_0052_50319",
+      "case_type": "payment_failure",
+      "amount": 8999.4,
+      "root_cause": "insufficient_funds",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 53,
@@ -416,6 +625,15 @@
       "root_cause": "excluded_at_detector",
       "final_status": "stopped_by_policy",
       "stop_reason": "Case excluded at detector stage"
+    },
+    {
+      "case_id": 54,
+      "source_reference": "txn_rzp_0054_46458",
+      "case_type": "payment_failure",
+      "amount": 1499.32,
+      "root_cause": "insufficient_funds",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 55,
@@ -432,8 +650,8 @@
       "case_type": "payment_failure",
       "amount": 1499.43,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 57,
@@ -450,8 +668,35 @@
       "case_type": "checkout_abandonment",
       "amount": 14999.07,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 59,
+      "source_reference": "txn_rzp_0059_86931",
+      "case_type": "payment_failure",
+      "amount": 14999.54,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 60,
+      "source_reference": "txn_rzp_0060_40613",
+      "case_type": "payment_failure",
+      "amount": 2499.96,
+      "root_cause": "insufficient_funds",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 61,
+      "source_reference": "txn_rzp_0061_12011",
+      "case_type": "payment_failure",
+      "amount": 1499.62,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 62,
@@ -459,8 +704,8 @@
       "case_type": "subscription_failure",
       "amount": 8999.68,
       "root_cause": "subscription_card_update_needed",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 63,
@@ -477,8 +722,17 @@
       "case_type": "payment_failure",
       "amount": 8999.01,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 65,
+      "source_reference": "txn_rzp_0065_55293",
+      "case_type": "payment_failure",
+      "amount": 2499.84,
+      "root_cause": "insufficient_funds",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 66,
@@ -504,8 +758,17 @@
       "case_type": "payment_failure",
       "amount": 14999.93,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 69,
+      "source_reference": "txn_rzp_0069_19869",
+      "case_type": "subscription_failure",
+      "amount": 1499.09,
+      "root_cause": "subscription_card_update_needed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 70,
@@ -513,8 +776,8 @@
       "case_type": "payment_failure",
       "amount": 4999.32,
       "root_cause": "issuer_timeout",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 71,
@@ -522,8 +785,8 @@
       "case_type": "subscription_failure",
       "amount": 999.88,
       "root_cause": "subscription_mandate_exhausted",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 72,
@@ -531,8 +794,8 @@
       "case_type": "checkout_abandonment",
       "amount": 999.44,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 73,
@@ -540,8 +803,17 @@
       "case_type": "subscription_failure",
       "amount": 8999.63,
       "root_cause": "subscription_card_update_needed",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 74,
+      "source_reference": "txn_rzp_0074_18992",
+      "case_type": "checkout_abandonment",
+      "amount": 499.27,
+      "root_cause": "high_intent_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 75,
@@ -549,8 +821,8 @@
       "case_type": "payment_failure",
       "amount": 999.73,
       "root_cause": "customer_dispute_or_charged_unconfirmed",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 76,
@@ -558,8 +830,8 @@
       "case_type": "checkout_abandonment",
       "amount": 1499.45,
       "root_cause": "high_intent_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 77,
@@ -567,8 +839,17 @@
       "case_type": "checkout_abandonment",
       "amount": 4999.71,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 78,
+      "source_reference": "txn_rzp_0078_22999",
+      "case_type": "checkout_abandonment",
+      "amount": 2499.88,
+      "root_cause": "price_sensitive_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 79,
@@ -576,8 +857,17 @@
       "case_type": "checkout_abandonment",
       "amount": 14999.08,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 80,
+      "source_reference": "txn_rzp_0080_97819",
+      "case_type": "checkout_abandonment",
+      "amount": 1499.59,
+      "root_cause": "high_intent_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 81,
@@ -585,8 +875,8 @@
       "case_type": "checkout_abandonment",
       "amount": 14999.56,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 82,
@@ -594,8 +884,71 @@
       "case_type": "subscription_failure",
       "amount": 4999.65,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 83,
+      "source_reference": "txn_rzp_0083_54681",
+      "case_type": "payment_failure",
+      "amount": 999.16,
+      "root_cause": "issuer_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 84,
+      "source_reference": "txn_rzp_0084_89570",
+      "case_type": "checkout_abandonment",
+      "amount": 8999.67,
+      "root_cause": "price_sensitive_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 85,
+      "source_reference": "txn_rzp_0085_11007",
+      "case_type": "payment_failure",
+      "amount": 499.49,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 86,
+      "source_reference": "txn_rzp_0086_83233",
+      "case_type": "checkout_abandonment",
+      "amount": 14999.31,
+      "root_cause": "price_sensitive_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 87,
+      "source_reference": "txn_rzp_0087_52568",
+      "case_type": "payment_failure",
+      "amount": 14999.1,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 88,
+      "source_reference": "txn_rzp_0088_54500",
+      "case_type": "payment_failure",
+      "amount": 14999.35,
+      "root_cause": "authentication_failed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 89,
+      "source_reference": "txn_rzp_0089_32740",
+      "case_type": "payment_failure",
+      "amount": 2499.75,
+      "root_cause": "authentication_failed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 90,
@@ -603,8 +956,17 @@
       "case_type": "checkout_abandonment",
       "amount": 499.35,
       "root_cause": "high_intent_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 91,
+      "source_reference": "txn_rzp_0091_20057",
+      "case_type": "payment_failure",
+      "amount": 4999.94,
+      "root_cause": "authentication_failed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 92,
@@ -612,8 +974,8 @@
       "case_type": "checkout_abandonment",
       "amount": 8999.08,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 93,
@@ -621,8 +983,35 @@
       "case_type": "payment_failure",
       "amount": 8999.59,
       "root_cause": "authentication_failed",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 94,
+      "source_reference": "txn_rzp_0094_47243",
+      "case_type": "payment_failure",
+      "amount": 4999.66,
+      "root_cause": "gateway_declined",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 95,
+      "source_reference": "txn_rzp_0095_87993",
+      "case_type": "checkout_abandonment",
+      "amount": 499.64,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 96,
+      "source_reference": "txn_rzp_0096_54791",
+      "case_type": "payment_failure",
+      "amount": 4999.76,
+      "root_cause": "authentication_failed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 97,
@@ -630,8 +1019,8 @@
       "case_type": "subscription_failure",
       "amount": 8999.43,
       "root_cause": "subscription_card_update_needed",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 98,
@@ -639,8 +1028,8 @@
       "case_type": "checkout_abandonment",
       "amount": 8999.94,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 99,
@@ -648,8 +1037,8 @@
       "case_type": "checkout_abandonment",
       "amount": 8999.84,
       "root_cause": "high_intent_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 100,
@@ -657,8 +1046,8 @@
       "case_type": "payment_failure",
       "amount": 2499.05,
       "root_cause": "customer_dispute_or_charged_unconfirmed",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 101,
@@ -666,8 +1055,17 @@
       "case_type": "payment_failure",
       "amount": 8999.82,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Execution delivery failed (undelivered)"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 102,
+      "source_reference": "txn_rzp_0102_12490",
+      "case_type": "payment_failure",
+      "amount": 14999.29,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 103,
@@ -684,8 +1082,26 @@
       "case_type": "checkout_abandonment",
       "amount": 4999.02,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Execution delivery failed (undelivered)"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 105,
+      "source_reference": "txn_rzp_0105_56805",
+      "case_type": "payment_failure",
+      "amount": 999.04,
+      "root_cause": "issuer_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 106,
+      "source_reference": "txn_rzp_0106_92802",
+      "case_type": "subscription_failure",
+      "amount": 499.78,
+      "root_cause": "otp_latency_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 107,
@@ -693,8 +1109,35 @@
       "case_type": "subscription_failure",
       "amount": 1499.12,
       "root_cause": "subscription_mandate_exhausted",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 108,
+      "source_reference": "txn_rzp_0108_54438",
+      "case_type": "subscription_failure",
+      "amount": 8999.42,
+      "root_cause": "subscription_card_update_needed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 109,
+      "source_reference": "txn_rzp_0109_52981",
+      "case_type": "payment_failure",
+      "amount": 499.72,
+      "root_cause": "gateway_declined",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 110,
+      "source_reference": "txn_rzp_0110_19835",
+      "case_type": "subscription_failure",
+      "amount": 14999.6,
+      "root_cause": "subscription_card_update_needed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 111,
@@ -711,8 +1154,8 @@
       "case_type": "checkout_abandonment",
       "amount": 8999.44,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 113,
@@ -720,8 +1163,17 @@
       "case_type": "payment_failure",
       "amount": 8999.34,
       "root_cause": "insufficient_funds",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 114,
+      "source_reference": "txn_rzp_0114_57381",
+      "case_type": "checkout_abandonment",
+      "amount": 1499.55,
+      "root_cause": "high_intent_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 115,
@@ -729,8 +1181,8 @@
       "case_type": "subscription_failure",
       "amount": 999.96,
       "root_cause": "subscription_mandate_exhausted",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 116,
@@ -738,8 +1190,8 @@
       "case_type": "payment_failure",
       "amount": 999.32,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 117,
@@ -747,8 +1199,8 @@
       "case_type": "subscription_failure",
       "amount": 4999.93,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 118,
@@ -756,8 +1208,17 @@
       "case_type": "subscription_failure",
       "amount": 2499.61,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 119,
+      "source_reference": "txn_rzp_0119_48985",
+      "case_type": "payment_failure",
+      "amount": 4999.14,
+      "root_cause": "gateway_declined",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 120,
@@ -765,8 +1226,8 @@
       "case_type": "subscription_failure",
       "amount": 499.05,
       "root_cause": "subscription_mandate_exhausted",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 121,
@@ -774,8 +1235,8 @@
       "case_type": "subscription_failure",
       "amount": 2499.5,
       "root_cause": "subscription_mandate_exhausted",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 122,
@@ -783,8 +1244,8 @@
       "case_type": "payment_failure",
       "amount": 8999.36,
       "root_cause": "card_expired",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 123,
@@ -792,8 +1253,8 @@
       "case_type": "checkout_abandonment",
       "amount": 8999.6,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 124,
@@ -801,8 +1262,8 @@
       "case_type": "checkout_abandonment",
       "amount": 14999.47,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 125,
@@ -810,8 +1271,8 @@
       "case_type": "subscription_failure",
       "amount": 2499.7,
       "root_cause": "subscription_card_update_needed",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 126,
@@ -819,8 +1280,8 @@
       "case_type": "checkout_abandonment",
       "amount": 8999.78,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 127,
@@ -828,8 +1289,17 @@
       "case_type": "payment_failure",
       "amount": 999.02,
       "root_cause": "card_expired",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 128,
+      "source_reference": "txn_rzp_0128_90147",
+      "case_type": "payment_failure",
+      "amount": 1499.99,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 129,
@@ -837,8 +1307,17 @@
       "case_type": "payment_failure",
       "amount": 4999.48,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 130,
+      "source_reference": "txn_rzp_0130_47880",
+      "case_type": "payment_failure",
+      "amount": 1499.12,
+      "root_cause": "issuer_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 131,
@@ -846,8 +1325,8 @@
       "case_type": "subscription_failure",
       "amount": 999.2,
       "root_cause": "subscription_mandate_exhausted",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 132,
@@ -855,8 +1334,8 @@
       "case_type": "payment_failure",
       "amount": 8999.47,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 133,
@@ -864,8 +1343,17 @@
       "case_type": "subscription_failure",
       "amount": 1499.28,
       "root_cause": "subscription_mandate_exhausted",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 134,
+      "source_reference": "txn_rzp_0134_64773",
+      "case_type": "subscription_failure",
+      "amount": 499.01,
+      "root_cause": "subscription_card_update_needed",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 135,
@@ -873,8 +1361,8 @@
       "case_type": "subscription_failure",
       "amount": 8999.18,
       "root_cause": "subscription_mandate_exhausted",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 136,
@@ -882,8 +1370,44 @@
       "case_type": "payment_failure",
       "amount": 999.01,
       "root_cause": "technical_unknown_error",
-      "final_status": "escalated",
-      "stop_reason": "Case escalated to manual operations review queue"
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 137,
+      "source_reference": "txn_rzp_0137_44282",
+      "case_type": "payment_failure",
+      "amount": 8999.5,
+      "root_cause": "gateway_declined",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 138,
+      "source_reference": "txn_rzp_0138_58174",
+      "case_type": "checkout_abandonment",
+      "amount": 1499.41,
+      "root_cause": "price_sensitive_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 139,
+      "source_reference": "txn_rzp_0139_78879",
+      "case_type": "checkout_abandonment",
+      "amount": 4999.2,
+      "root_cause": "card_expired",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 140,
+      "source_reference": "txn_rzp_0140_86434",
+      "case_type": "payment_failure",
+      "amount": 2499.56,
+      "root_cause": "issuer_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
     },
     {
       "case_id": 141,
@@ -895,6 +1419,24 @@
       "stop_reason": "Case excluded at detector stage"
     },
     {
+      "case_id": 142,
+      "source_reference": "txn_rzp_0142_59081",
+      "case_type": "checkout_abandonment",
+      "amount": 999.65,
+      "root_cause": "high_intent_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 143,
+      "source_reference": "txn_rzp_0143_10455",
+      "case_type": "payment_failure",
+      "amount": 999.46,
+      "root_cause": "insufficient_funds",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
       "case_id": 144,
       "source_reference": "txn_rzp_0144_90599",
       "case_type": "payment_failure",
@@ -904,1552 +1446,58 @@
       "stop_reason": "Case excluded at detector stage"
     },
     {
+      "case_id": 145,
+      "source_reference": "txn_rzp_0145_28367",
+      "case_type": "checkout_abandonment",
+      "amount": 999.3,
+      "root_cause": "high_intent_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 146,
+      "source_reference": "txn_rzp_0146_82970",
+      "case_type": "payment_failure",
+      "amount": 1499.93,
+      "root_cause": "issuer_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 147,
+      "source_reference": "txn_rzp_0147_59343",
+      "case_type": "payment_failure",
+      "amount": 14999.46,
+      "root_cause": "insufficient_funds",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 148,
+      "source_reference": "txn_rzp_0148_41831",
+      "case_type": "checkout_abandonment",
+      "amount": 8999.82,
+      "root_cause": "high_intent_abandonment",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
+      "case_id": 149,
+      "source_reference": "txn_rzp_0149_72835",
+      "case_type": "payment_failure",
+      "amount": 8999.12,
+      "root_cause": "otp_latency_timeout",
+      "final_status": "stopped_by_policy",
+      "stop_reason": "Execution halted by safety guardrails"
+    },
+    {
       "case_id": 150,
       "source_reference": "txn_rzp_0150_61987",
       "case_type": "checkout_abandonment",
       "amount": 1499.36,
       "root_cause": "price_sensitive_abandonment",
-      "final_status": "failed",
-      "stop_reason": "Execution delivery failed (undelivered)"
-    },
-    {
-      "case_id": 154,
-      "source_reference": "txn_batch_ca31ed_3",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "card_expired",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
-    },
-    {
-      "case_id": 157,
-      "source_reference": "test_efd0c8_txn_rzp_0001_60050",
-      "case_type": "checkout_abandonment",
-      "amount": 4999.53,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 158,
-      "source_reference": "test_efd0c8_txn_rzp_0002_83202",
-      "case_type": "payment_failure",
-      "amount": 14999.03,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 159,
-      "source_reference": "test_efd0c8_txn_rzp_0003_84589",
-      "case_type": "payment_failure",
-      "amount": 999.6,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 160,
-      "source_reference": "test_efd0c8_txn_rzp_0004_81369",
-      "case_type": "checkout_abandonment",
-      "amount": 499.33,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 161,
-      "source_reference": "test_efd0c8_txn_rzp_0005_54420",
-      "case_type": "subscription_failure",
-      "amount": 999.34,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 162,
-      "source_reference": "test_efd0c8_txn_rzp_0006_58467",
-      "case_type": "subscription_failure",
-      "amount": 499.57,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 163,
-      "source_reference": "test_efd0c8_txn_rzp_0007_78243",
-      "case_type": "payment_failure",
-      "amount": 999.24,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 164,
-      "source_reference": "test_efd0c8_txn_rzp_0008_61550",
-      "case_type": "payment_failure",
-      "amount": 999.13,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 165,
-      "source_reference": "test_efd0c8_txn_rzp_0009_13178",
-      "case_type": "payment_failure",
-      "amount": 8999.39,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 166,
-      "source_reference": "test_efd0c8_txn_rzp_0010_94682",
-      "case_type": "subscription_failure",
-      "amount": 999.64,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 167,
-      "source_reference": "test_efd0c8_txn_rzp_0011_71659",
-      "case_type": "checkout_abandonment",
-      "amount": 8999.47,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 168,
-      "source_reference": "test_efd0c8_txn_rzp_0012_23061",
-      "case_type": "checkout_abandonment",
-      "amount": 4999.35,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 169,
-      "source_reference": "test_efd0c8_txn_rzp_0013_43506",
-      "case_type": "payment_failure",
-      "amount": 499.85,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 170,
-      "source_reference": "test_efd0c8_txn_rzp_0014_61813",
-      "case_type": "subscription_failure",
-      "amount": 4999.26,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 171,
-      "source_reference": "test_efd0c8_txn_rzp_0015_65629",
-      "case_type": "payment_failure",
-      "amount": 4999.68,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 172,
-      "source_reference": "test_efd0c8_txn_rzp_0016_40351",
-      "case_type": "payment_failure",
-      "amount": 999.54,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 173,
-      "source_reference": "test_efd0c8_txn_rzp_0017_88657",
-      "case_type": "subscription_failure",
-      "amount": 2499.93,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 174,
-      "source_reference": "test_efd0c8_txn_rzp_0018_45551",
-      "case_type": "subscription_failure",
-      "amount": 14999.47,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 175,
-      "source_reference": "test_efd0c8_txn_rzp_0019_89706",
-      "case_type": "payment_failure",
-      "amount": 14999.84,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 176,
-      "source_reference": "test_efd0c8_txn_rzp_0020_43683",
-      "case_type": "payment_failure",
-      "amount": 999.05,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 177,
-      "source_reference": "txn_valid_026120",
-      "case_type": "payment_failure",
-      "amount": 1499.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "detected_at_risk",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 178,
-      "source_reference": "txn_disq_f744a1_0",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "FRAUD_DISQUALIFIED: Flagged for suspicious fraud pattern"
-    },
-    {
-      "case_id": 179,
-      "source_reference": "txn_disq_f744a1_1",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "REFUND_DISQUALIFIED: Prior refund already issued for source reference"
-    },
-    {
-      "case_id": 180,
-      "source_reference": "txn_disq_f744a1_2",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "DUPLICATE_DISQUALIFIED: Identical source reference already recorded"
-    },
-    {
-      "case_id": 181,
-      "source_reference": "txn_rule_97b392_0",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 182,
-      "source_reference": "txn_rule_97b392_1",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "card_expired",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 183,
-      "source_reference": "txn_rule_97b392_2",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 184,
-      "source_reference": "txn_rule_97b392_3",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "authentication_failed",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 185,
-      "source_reference": "txn_rule_97b392_4",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "gateway_declined",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 186,
-      "source_reference": "txn_llm_2834f1_0",
-      "case_type": "payment_failure",
-      "amount": 2499.0,
-      "root_cause": "customer_dispute_or_charged_unconfirmed",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 187,
-      "source_reference": "txn_llm_2834f1_1",
-      "case_type": "payment_failure",
-      "amount": 2499.0,
-      "root_cause": "otp_latency_timeout",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 188,
-      "source_reference": "txn_exec_order_2d0760",
-      "case_type": "payment_failure",
-      "amount": 2999.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "executed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 189,
-      "source_reference": "txn_exec_refused_461f02",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "insufficient_funds",
       "final_status": "stopped_by_policy",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 190,
-      "source_reference": "txn_strat_24d538_0",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 191,
-      "source_reference": "txn_strat_24d538_1",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "card_expired",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 192,
-      "source_reference": "txn_strat_24d538_2",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 193,
-      "source_reference": "txn_strat_24d538_3",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "authentication_failed",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 194,
-      "source_reference": "txn_strat_24d538_4",
-      "case_type": "subscription_failure",
-      "amount": 1500.0,
-      "root_cause": "subscription_mandate_exhausted",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 195,
-      "source_reference": "txn_exhausted_03ceb6",
-      "case_type": "payment_failure",
-      "amount": 2000.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Guardrail blocked action: Case attempts (1) reached or exceeded policy maximum (1)"
-    },
-    {
-      "case_id": 196,
-      "source_reference": "txn_kill_dc962b",
-      "case_type": "payment_failure",
-      "amount": 3000.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Guardrail blocked action: Global kill switch is enabled across the recovery engine"
-    },
-    {
-      "case_id": 198,
-      "source_reference": "txn_excl_track_c1ddfd",
-      "case_type": "checkout_abandonment",
-      "amount": 1200.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Case excluded at detector stage"
-    },
-    {
-      "case_id": 199,
-      "source_reference": "txn_api_32008a",
-      "case_type": "payment_failure",
-      "amount": 2499.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
-    },
-    {
-      "case_id": 203,
-      "source_reference": "txn_batch_dccfe6_3",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "card_expired",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
-    },
-    {
-      "case_id": 204,
-      "source_reference": "txn_batch_dccfe6_4",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "card_expired",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
-    },
-    {
-      "case_id": 206,
-      "source_reference": "test_d59461_txn_rzp_0001_30168",
-      "case_type": "subscription_failure",
-      "amount": 2499.44,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 207,
-      "source_reference": "test_d59461_txn_rzp_0002_60817",
-      "case_type": "payment_failure",
-      "amount": 14999.6,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 208,
-      "source_reference": "test_d59461_txn_rzp_0003_38743",
-      "case_type": "payment_failure",
-      "amount": 499.69,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 209,
-      "source_reference": "test_d59461_txn_rzp_0004_97262",
-      "case_type": "checkout_abandonment",
-      "amount": 4999.08,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 210,
-      "source_reference": "test_d59461_txn_rzp_0005_88273",
-      "case_type": "checkout_abandonment",
-      "amount": 2499.56,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 211,
-      "source_reference": "test_d59461_txn_rzp_0006_98949",
-      "case_type": "subscription_failure",
-      "amount": 14999.49,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 212,
-      "source_reference": "test_d59461_txn_rzp_0007_51416",
-      "case_type": "subscription_failure",
-      "amount": 499.25,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 213,
-      "source_reference": "test_d59461_txn_rzp_0008_23484",
-      "case_type": "payment_failure",
-      "amount": 499.8,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 214,
-      "source_reference": "test_d59461_txn_rzp_0009_21653",
-      "case_type": "payment_failure",
-      "amount": 8999.91,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 215,
-      "source_reference": "test_d59461_txn_rzp_0010_90092",
-      "case_type": "checkout_abandonment",
-      "amount": 1499.64,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 216,
-      "source_reference": "test_d59461_txn_rzp_0011_61358",
-      "case_type": "payment_failure",
-      "amount": 4999.45,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 217,
-      "source_reference": "test_d59461_txn_rzp_0012_57256",
-      "case_type": "subscription_failure",
-      "amount": 4999.38,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 218,
-      "source_reference": "test_d59461_txn_rzp_0013_90160",
-      "case_type": "subscription_failure",
-      "amount": 1499.68,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 219,
-      "source_reference": "test_d59461_txn_rzp_0014_93551",
-      "case_type": "subscription_failure",
-      "amount": 2499.26,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 220,
-      "source_reference": "test_d59461_txn_rzp_0015_97887",
-      "case_type": "payment_failure",
-      "amount": 4999.24,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 221,
-      "source_reference": "test_d59461_txn_rzp_0016_50489",
-      "case_type": "payment_failure",
-      "amount": 8999.09,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 222,
-      "source_reference": "test_d59461_txn_rzp_0017_33574",
-      "case_type": "payment_failure",
-      "amount": 499.82,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 223,
-      "source_reference": "test_d59461_txn_rzp_0018_98669",
-      "case_type": "payment_failure",
-      "amount": 1499.58,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 224,
-      "source_reference": "test_d59461_txn_rzp_0019_67404",
-      "case_type": "payment_failure",
-      "amount": 4999.31,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 225,
-      "source_reference": "test_d59461_txn_rzp_0020_85301",
-      "case_type": "checkout_abandonment",
-      "amount": 499.89,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 226,
-      "source_reference": "txn_valid_31ae8a",
-      "case_type": "payment_failure",
-      "amount": 1499.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "detected_at_risk",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 227,
-      "source_reference": "txn_disq_905d5d_0",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "FRAUD_DISQUALIFIED: Flagged for suspicious fraud pattern"
-    },
-    {
-      "case_id": 228,
-      "source_reference": "txn_disq_905d5d_1",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "REFUND_DISQUALIFIED: Prior refund already issued for source reference"
-    },
-    {
-      "case_id": 229,
-      "source_reference": "txn_disq_905d5d_2",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "DUPLICATE_DISQUALIFIED: Identical source reference already recorded"
-    },
-    {
-      "case_id": 230,
-      "source_reference": "txn_rule_759fad_0",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 231,
-      "source_reference": "txn_rule_759fad_1",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "card_expired",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 232,
-      "source_reference": "txn_rule_759fad_2",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 233,
-      "source_reference": "txn_rule_759fad_3",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "authentication_failed",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 234,
-      "source_reference": "txn_rule_759fad_4",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "gateway_declined",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 235,
-      "source_reference": "txn_llm_c2c35d_0",
-      "case_type": "payment_failure",
-      "amount": 2499.0,
-      "root_cause": "customer_dispute_or_charged_unconfirmed",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 236,
-      "source_reference": "txn_llm_c2c35d_1",
-      "case_type": "payment_failure",
-      "amount": 2499.0,
-      "root_cause": "otp_latency_timeout",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 237,
-      "source_reference": "txn_exec_order_8080eb",
-      "case_type": "payment_failure",
-      "amount": 2999.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "executed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 238,
-      "source_reference": "txn_exec_refused_ddea61",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 239,
-      "source_reference": "txn_strat_f2e9cb_0",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 240,
-      "source_reference": "txn_strat_f2e9cb_1",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "card_expired",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 241,
-      "source_reference": "txn_strat_f2e9cb_2",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 242,
-      "source_reference": "txn_strat_f2e9cb_3",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "authentication_failed",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 243,
-      "source_reference": "txn_strat_f2e9cb_4",
-      "case_type": "subscription_failure",
-      "amount": 1500.0,
-      "root_cause": "subscription_mandate_exhausted",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 244,
-      "source_reference": "txn_exhausted_c5da87",
-      "case_type": "payment_failure",
-      "amount": 2000.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Guardrail blocked action: Case attempts (1) reached or exceeded policy maximum (1)"
-    },
-    {
-      "case_id": 245,
-      "source_reference": "txn_kill_6c426e",
-      "case_type": "payment_failure",
-      "amount": 3000.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Guardrail blocked action: Global kill switch is enabled across the recovery engine"
-    },
-    {
-      "case_id": 247,
-      "source_reference": "txn_excl_track_5deea9",
-      "case_type": "checkout_abandonment",
-      "amount": 1200.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Case excluded at detector stage"
-    },
-    {
-      "case_id": 249,
-      "source_reference": "txn_batch_c1da16_0",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "card_expired",
-      "final_status": "failed",
-      "stop_reason": "Customer did not complete payment within window"
-    },
-    {
-      "case_id": 253,
-      "source_reference": "txn_batch_c1da16_4",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "card_expired",
-      "final_status": "failed",
-      "stop_reason": "Execution delivery failed (bounced)"
-    },
-    {
-      "case_id": 255,
-      "source_reference": "test_addf5c_txn_rzp_0001_51994",
-      "case_type": "payment_failure",
-      "amount": 14999.97,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 256,
-      "source_reference": "test_addf5c_txn_rzp_0002_74867",
-      "case_type": "checkout_abandonment",
-      "amount": 1499.84,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 257,
-      "source_reference": "test_addf5c_txn_rzp_0003_98623",
-      "case_type": "checkout_abandonment",
-      "amount": 499.82,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 258,
-      "source_reference": "test_addf5c_txn_rzp_0004_83621",
-      "case_type": "checkout_abandonment",
-      "amount": 999.94,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 259,
-      "source_reference": "test_addf5c_txn_rzp_0005_48167",
-      "case_type": "payment_failure",
-      "amount": 2499.32,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 260,
-      "source_reference": "test_addf5c_txn_rzp_0006_59103",
-      "case_type": "payment_failure",
-      "amount": 2499.06,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 261,
-      "source_reference": "test_addf5c_txn_rzp_0007_25965",
-      "case_type": "payment_failure",
-      "amount": 2499.91,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 262,
-      "source_reference": "test_addf5c_txn_rzp_0008_55372",
-      "case_type": "checkout_abandonment",
-      "amount": 999.07,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 263,
-      "source_reference": "test_addf5c_txn_rzp_0009_20821",
-      "case_type": "payment_failure",
-      "amount": 8999.24,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 264,
-      "source_reference": "test_addf5c_txn_rzp_0010_73738",
-      "case_type": "payment_failure",
-      "amount": 999.36,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 265,
-      "source_reference": "test_addf5c_txn_rzp_0011_92204",
-      "case_type": "checkout_abandonment",
-      "amount": 14999.63,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 266,
-      "source_reference": "test_addf5c_txn_rzp_0012_75629",
-      "case_type": "subscription_failure",
-      "amount": 4999.96,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 267,
-      "source_reference": "test_addf5c_txn_rzp_0013_97227",
-      "case_type": "checkout_abandonment",
-      "amount": 8999.72,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 268,
-      "source_reference": "test_addf5c_txn_rzp_0014_46344",
-      "case_type": "checkout_abandonment",
-      "amount": 4999.46,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 269,
-      "source_reference": "test_addf5c_txn_rzp_0015_82156",
-      "case_type": "payment_failure",
-      "amount": 2499.82,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 270,
-      "source_reference": "test_addf5c_txn_rzp_0016_64274",
-      "case_type": "subscription_failure",
-      "amount": 499.96,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 271,
-      "source_reference": "test_addf5c_txn_rzp_0017_57464",
-      "case_type": "payment_failure",
-      "amount": 499.69,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 272,
-      "source_reference": "test_addf5c_txn_rzp_0018_95748",
-      "case_type": "checkout_abandonment",
-      "amount": 4999.98,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 273,
-      "source_reference": "test_addf5c_txn_rzp_0019_72014",
-      "case_type": "payment_failure",
-      "amount": 999.65,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 274,
-      "source_reference": "test_addf5c_txn_rzp_0020_23795",
-      "case_type": "payment_failure",
-      "amount": 2499.58,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 275,
-      "source_reference": "txn_valid_05457b",
-      "case_type": "payment_failure",
-      "amount": 1499.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "detected_at_risk",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 276,
-      "source_reference": "txn_disq_71735d_0",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "FRAUD_DISQUALIFIED: Flagged for suspicious fraud pattern"
-    },
-    {
-      "case_id": 277,
-      "source_reference": "txn_disq_71735d_1",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "REFUND_DISQUALIFIED: Prior refund already issued for source reference"
-    },
-    {
-      "case_id": 278,
-      "source_reference": "txn_disq_71735d_2",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "DUPLICATE_DISQUALIFIED: Identical source reference already recorded"
-    },
-    {
-      "case_id": 279,
-      "source_reference": "txn_rule_2883b8_0",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 280,
-      "source_reference": "txn_rule_2883b8_1",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "card_expired",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 281,
-      "source_reference": "txn_rule_2883b8_2",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 282,
-      "source_reference": "txn_rule_2883b8_3",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "authentication_failed",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 283,
-      "source_reference": "txn_rule_2883b8_4",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "gateway_declined",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 284,
-      "source_reference": "txn_llm_979b5f_0",
-      "case_type": "payment_failure",
-      "amount": 2499.0,
-      "root_cause": "customer_dispute_or_charged_unconfirmed",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 285,
-      "source_reference": "txn_llm_979b5f_1",
-      "case_type": "payment_failure",
-      "amount": 2499.0,
-      "root_cause": "otp_latency_timeout",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 286,
-      "source_reference": "txn_exec_order_6c6fc0",
-      "case_type": "payment_failure",
-      "amount": 2999.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "executed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 287,
-      "source_reference": "txn_exec_refused_8c51c7",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 288,
-      "source_reference": "txn_strat_c27efd_0",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 289,
-      "source_reference": "txn_strat_c27efd_1",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "card_expired",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 290,
-      "source_reference": "txn_strat_c27efd_2",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 291,
-      "source_reference": "txn_strat_c27efd_3",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "authentication_failed",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 292,
-      "source_reference": "txn_strat_c27efd_4",
-      "case_type": "subscription_failure",
-      "amount": 1500.0,
-      "root_cause": "subscription_mandate_exhausted",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 293,
-      "source_reference": "txn_exhausted_1a57b6",
-      "case_type": "payment_failure",
-      "amount": 2000.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Guardrail blocked action: Case attempts (1) reached or exceeded policy maximum (1)"
-    },
-    {
-      "case_id": 294,
-      "source_reference": "txn_kill_745b4c",
-      "case_type": "payment_failure",
-      "amount": 3000.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Guardrail blocked action: Global kill switch is enabled across the recovery engine"
-    },
-    {
-      "case_id": 296,
-      "source_reference": "txn_excl_track_a5f64d",
-      "case_type": "checkout_abandonment",
-      "amount": 1200.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Case excluded at detector stage"
-    },
-    {
-      "case_id": 298,
-      "source_reference": "txn_batch_c31060_0",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "card_expired",
-      "final_status": "failed",
-      "stop_reason": "Execution delivery failed (bounced)"
-    },
-    {
-      "case_id": 304,
-      "source_reference": "test_c0b25f_txn_rzp_0001_41372",
-      "case_type": "subscription_failure",
-      "amount": 8999.09,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 305,
-      "source_reference": "test_c0b25f_txn_rzp_0002_82491",
-      "case_type": "payment_failure",
-      "amount": 999.39,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 306,
-      "source_reference": "test_c0b25f_txn_rzp_0003_28731",
-      "case_type": "checkout_abandonment",
-      "amount": 499.71,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 307,
-      "source_reference": "test_c0b25f_txn_rzp_0004_80545",
-      "case_type": "payment_failure",
-      "amount": 8999.94,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 308,
-      "source_reference": "test_c0b25f_txn_rzp_0005_13796",
-      "case_type": "checkout_abandonment",
-      "amount": 1499.7,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 309,
-      "source_reference": "test_c0b25f_txn_rzp_0006_40205",
-      "case_type": "payment_failure",
-      "amount": 1499.54,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 310,
-      "source_reference": "test_c0b25f_txn_rzp_0007_46817",
-      "case_type": "checkout_abandonment",
-      "amount": 1499.71,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 311,
-      "source_reference": "test_c0b25f_txn_rzp_0008_10316",
-      "case_type": "checkout_abandonment",
-      "amount": 8999.34,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 312,
-      "source_reference": "test_c0b25f_txn_rzp_0009_53698",
-      "case_type": "checkout_abandonment",
-      "amount": 999.4,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 313,
-      "source_reference": "test_c0b25f_txn_rzp_0010_23883",
-      "case_type": "checkout_abandonment",
-      "amount": 999.1,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 314,
-      "source_reference": "test_c0b25f_txn_rzp_0011_71791",
-      "case_type": "payment_failure",
-      "amount": 14999.62,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 315,
-      "source_reference": "test_c0b25f_txn_rzp_0012_53170",
-      "case_type": "payment_failure",
-      "amount": 4999.31,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 316,
-      "source_reference": "test_c0b25f_txn_rzp_0013_76234",
-      "case_type": "payment_failure",
-      "amount": 2499.82,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 317,
-      "source_reference": "test_c0b25f_txn_rzp_0014_75591",
-      "case_type": "payment_failure",
-      "amount": 14999.31,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 318,
-      "source_reference": "test_c0b25f_txn_rzp_0015_14152",
-      "case_type": "payment_failure",
-      "amount": 499.29,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 319,
-      "source_reference": "test_c0b25f_txn_rzp_0016_25426",
-      "case_type": "payment_failure",
-      "amount": 4999.33,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 320,
-      "source_reference": "test_c0b25f_txn_rzp_0017_10182",
-      "case_type": "payment_failure",
-      "amount": 4999.2,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 321,
-      "source_reference": "test_c0b25f_txn_rzp_0018_96957",
-      "case_type": "payment_failure",
-      "amount": 499.82,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 322,
-      "source_reference": "test_c0b25f_txn_rzp_0019_92460",
-      "case_type": "subscription_failure",
-      "amount": 2499.88,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 323,
-      "source_reference": "test_c0b25f_txn_rzp_0020_19942",
-      "case_type": "payment_failure",
-      "amount": 14999.61,
-      "root_cause": "excluded_at_detector",
-      "final_status": "open",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 324,
-      "source_reference": "txn_valid_0bf387",
-      "case_type": "payment_failure",
-      "amount": 1499.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "detected_at_risk",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 325,
-      "source_reference": "txn_disq_881d8d_0",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "FRAUD_DISQUALIFIED: Flagged for suspicious fraud pattern"
-    },
-    {
-      "case_id": 326,
-      "source_reference": "txn_disq_881d8d_1",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "REFUND_DISQUALIFIED: Prior refund already issued for source reference"
-    },
-    {
-      "case_id": 327,
-      "source_reference": "txn_disq_881d8d_2",
-      "case_type": "checkout_abandonment",
-      "amount": 999.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "excluded",
-      "stop_reason": "DUPLICATE_DISQUALIFIED: Identical source reference already recorded"
-    },
-    {
-      "case_id": 328,
-      "source_reference": "txn_rule_db7a80_0",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 329,
-      "source_reference": "txn_rule_db7a80_1",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "card_expired",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 330,
-      "source_reference": "txn_rule_db7a80_2",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 331,
-      "source_reference": "txn_rule_db7a80_3",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "authentication_failed",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 332,
-      "source_reference": "txn_rule_db7a80_4",
-      "case_type": "payment_failure",
-      "amount": 1999.0,
-      "root_cause": "gateway_declined",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 333,
-      "source_reference": "txn_llm_17cc34_0",
-      "case_type": "payment_failure",
-      "amount": 2499.0,
-      "root_cause": "customer_dispute_or_charged_unconfirmed",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 334,
-      "source_reference": "txn_llm_17cc34_1",
-      "case_type": "payment_failure",
-      "amount": 2499.0,
-      "root_cause": "otp_latency_timeout",
-      "final_status": "diagnosed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 335,
-      "source_reference": "txn_exec_order_2705cc",
-      "case_type": "payment_failure",
-      "amount": 2999.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "executed",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 336,
-      "source_reference": "txn_exec_refused_b949ca",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 337,
-      "source_reference": "txn_strat_c61717_0",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 338,
-      "source_reference": "txn_strat_c61717_1",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "card_expired",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 339,
-      "source_reference": "txn_strat_c61717_2",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 340,
-      "source_reference": "txn_strat_c61717_3",
-      "case_type": "payment_failure",
-      "amount": 1500.0,
-      "root_cause": "authentication_failed",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 341,
-      "source_reference": "txn_strat_c61717_4",
-      "case_type": "subscription_failure",
-      "amount": 1500.0,
-      "root_cause": "subscription_mandate_exhausted",
-      "final_status": "decided",
-      "stop_reason": "Unknown stop reason"
-    },
-    {
-      "case_id": 342,
-      "source_reference": "txn_exhausted_41caf3",
-      "case_type": "payment_failure",
-      "amount": 2000.0,
-      "root_cause": "issuer_timeout",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Guardrail blocked action: Case attempts (1) reached or exceeded policy maximum (1)"
-    },
-    {
-      "case_id": 343,
-      "source_reference": "txn_kill_e2d388",
-      "case_type": "payment_failure",
-      "amount": 3000.0,
-      "root_cause": "insufficient_funds",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Guardrail blocked action: Global kill switch is enabled across the recovery engine"
-    },
-    {
-      "case_id": 345,
-      "source_reference": "txn_excl_track_c41b7e",
-      "case_type": "checkout_abandonment",
-      "amount": 1200.0,
-      "root_cause": "excluded_at_detector",
-      "final_status": "stopped_by_policy",
-      "stop_reason": "Case excluded at detector stage"
+      "stop_reason": "Execution halted by safety guardrails"
     }
   ]
 }
