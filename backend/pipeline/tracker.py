@@ -3,7 +3,7 @@ import os
 import sys
 from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone
-from sqlalchemy import select, and_
+from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
@@ -34,11 +34,7 @@ class OutcomeTrackerService:
         if not case:
             return None
 
-        existing_outcome_stmt = select(Outcome).where(Outcome.case_id == case_id)
-        existing_res = await self.session.execute(existing_outcome_stmt)
-        existing_outcome = existing_res.scalars().first()
-        if existing_outcome:
-            return existing_outcome
+        await self.session.execute(delete(Outcome).where(Outcome.case_id == case_id))
 
         if case.status == "excluded":
             outcome = Outcome(

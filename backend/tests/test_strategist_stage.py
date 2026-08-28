@@ -1,9 +1,8 @@
 import pytest
 import uuid
-from sqlalchemy import select, and_
-from config import settings
+from sqlalchemy import select, and_, delete
 from database import async_session_factory
-from models import RecoveryCase, Diagnosis, Decision, AuditLog, CaseType, DiagnosisMethod
+from models import RecoveryCase, Diagnosis, Decision, Execution, AuditLog, CaseType, DiagnosisMethod
 from pipeline.strategist import StrategistService
 
 @pytest.mark.asyncio
@@ -30,6 +29,10 @@ async def test_strategist_action_selection_per_root_cause():
             session.add(case)
             await session.flush()
 
+            await session.execute(delete(Decision).where(Decision.case_id == case.id))
+            await session.execute(delete(Diagnosis).where(Diagnosis.case_id == case.id))
+            await session.flush()
+
             diagnosis = Diagnosis(
                 case_id=case.id,
                 root_cause=cause,
@@ -40,12 +43,12 @@ async def test_strategist_action_selection_per_root_cause():
             session.add(diagnosis)
             await session.flush()
 
-            strategist = StrategistService(session)
+            strategist = StrategistService(session, kill_switch_active=False)
             decision = await strategist.decide_single_case(case.id)
 
             assert decision is not None
             assert decision.policy_rule_id == expected_rule
-            assert decision.chosen_action == expected_action
+            assert decision.chosen_action == expected_action, f"Justification: {decision.justification}"
             assert decision.guardrail_checks_passed is True
             assert len(decision.justification) > 10
 
@@ -74,6 +77,10 @@ async def test_strategist_guardrail_blocks_exhausted_retries():
         session.add(case)
         await session.flush()
 
+        await session.execute(delete(Decision).where(Decision.case_id == case.id))
+        await session.execute(delete(Diagnosis).where(Diagnosis.case_id == case.id))
+        await session.flush()
+
         diagnosis = Diagnosis(
             case_id=case.id,
             root_cause="issuer_timeout",
@@ -95,7 +102,7 @@ async def test_strategist_guardrail_blocks_exhausted_retries():
         session.add(prior_decision)
         await session.flush()
 
-        strategist = StrategistService(session)
+        strategist = StrategistService(session, kill_switch_active=False)
         blocked_decision = await strategist.decide_single_case(case.id)
 
         assert blocked_decision is not None
@@ -109,39 +116,37 @@ async def test_strategist_guardrail_blocks_exhausted_retries():
 @pytest.mark.asyncio
 async def test_strategist_guardrail_kill_switch():
     test_run_id = uuid.uuid4().hex[:6]
-    original_kill_switch = settings.GLOBAL_KILL_SWITCH
-    settings.GLOBAL_KILL_SWITCH = True
+    async with async_session_factory() as session:
+        case = RecoveryCase(
+            case_type=CaseType.payment_failure,
+            source_reference=f"txn_kill_{test_run_id}",
+            customer_id=f"cust_kill_{test_run_id}",
+            amount=3000.0,
+            currency="INR",
+            status="diagnosed"
+        )
+        session.add(case)
+        await session.flush()
 
-    try:
-        async with async_session_factory() as session:
-            case = RecoveryCase(
-                case_type=CaseType.payment_failure,
-                source_reference=f"txn_kill_{test_run_id}",
-                customer_id=f"cust_kill_{test_run_id}",
-                amount=3000.0,
-                currency="INR",
-                status="diagnosed"
-            )
-            session.add(case)
-            await session.flush()
+        await session.execute(delete(Decision).where(Decision.case_id == case.id))
+        await session.execute(delete(Diagnosis).where(Diagnosis.case_id == case.id))
+        await session.flush()
 
-            diagnosis = Diagnosis(
-                case_id=case.id,
-                root_cause="insufficient_funds",
-                confidence=1.0,
-                evidence={"source": "unit_test"},
-                method=DiagnosisMethod.rule
-            )
-            session.add(diagnosis)
-            await session.flush()
+        diagnosis = Diagnosis(
+            case_id=case.id,
+            root_cause="insufficient_funds",
+            confidence=1.0,
+            evidence={"source": "unit_test"},
+            method=DiagnosisMethod.rule
+        )
+        session.add(diagnosis)
+        await session.flush()
 
-            strategist = StrategistService(session)
-            decision = await strategist.decide_single_case(case.id)
+        strategist = StrategistService(session, kill_switch_active=True)
+        decision = await strategist.decide_single_case(case.id)
 
-            assert decision is not None
-            assert decision.guardrail_checks_passed is False
-            assert decision.chosen_action == "escalate_or_stop_by_policy"
-            assert "GLOBAL_KILL_SWITCH_ACTIVE" in decision.justification or "kill switch" in decision.justification
-            await session.commit()
-    finally:
-        settings.GLOBAL_KILL_SWITCH = original_kill_switch
+        assert decision is not None
+        assert decision.guardrail_checks_passed is False
+        assert decision.chosen_action == "escalate_or_stop_by_policy"
+        assert "GLOBAL_KILL_SWITCH_ACTIVE" in decision.justification or "kill switch" in decision.justification
+        await session.commit()

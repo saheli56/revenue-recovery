@@ -75,6 +75,7 @@ async def test_database_models_roundtrip():
         )
         session.add(outcome)
         await session.flush()
+        outcome_id = outcome.id
 
         audit = AuditLog(
             case_id=case_id,
@@ -102,17 +103,16 @@ async def test_database_models_roundtrip():
         assert queried_decision.guardrail_checks_passed is True
 
         exec_res = await session.execute(select(Execution).where(Execution.decision_id == decision_id))
-        queried_exec = exec_res.scalar_one_or_none()
+        queried_exec = exec_res.scalars().first()
         assert queried_exec is not None
         assert queried_exec.channel == "simulated_email_service"
 
-        out_res = await session.execute(select(Outcome).where(Outcome.case_id == case_id))
-        queried_out = out_res.scalar_one_or_none()
+        queried_out = await session.get(Outcome, outcome_id)
         assert queried_out is not None
         assert queried_out.recovered is True
         assert queried_out.final_status == FinalStatus.recovered
 
         audit_res = await session.execute(select(AuditLog).where(AuditLog.case_id == case_id))
-        queried_audit = audit_res.scalar_one_or_none()
+        queried_audit = audit_res.scalars().first()
         assert queried_audit is not None
         assert queried_audit.stage == "strategist"

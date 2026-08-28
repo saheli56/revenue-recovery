@@ -1,7 +1,7 @@
 import sys
 import os
 from typing import Optional, List, Dict, Any
-from sqlalchemy import select, and_
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
@@ -56,7 +56,6 @@ class AuditorService:
             return {"valid": False, "reason": "Case not found"}
 
         stages_present = [log.stage for log in trace.audit_logs]
-        events_present = [log.event for log in trace.audit_logs]
 
         has_ingestion = "ingestion" in stages_present
         has_detector = "detector" in stages_present
@@ -70,8 +69,12 @@ class AuditorService:
                 "stages_present": stages_present
             }
 
-        is_excluded = trace.case.status in ["excluded", "stopped_by_policy"]
-        if not is_excluded:
+        is_detector_excluded = any(
+            log.stage == "detector" and log.event == "case_excluded_from_recovery"
+            for log in trace.audit_logs
+        )
+
+        if not is_detector_excluded:
             has_diagnoser = "diagnoser" in stages_present
             has_strategist = "strategist" in stages_present
             has_executor = "executor" in stages_present

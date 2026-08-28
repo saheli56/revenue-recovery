@@ -14,8 +14,9 @@ class GuardrailResult:
     metrics: Dict[str, Any] = field(default_factory=dict)
 
 class GuardrailEngine:
-    def __init__(self, db_session: AsyncSession):
+    def __init__(self, db_session: AsyncSession, kill_switch_active: Optional[bool] = None):
         self.session = db_session
+        self.kill_switch_active = kill_switch_active if kill_switch_active is not None else settings.GLOBAL_KILL_SWITCH
 
     async def evaluate_guardrails(
         self,
@@ -28,7 +29,7 @@ class GuardrailEngine:
         reasons: List[str] = []
         now = datetime.now(timezone.utc)
 
-        if settings.GLOBAL_KILL_SWITCH:
+        if self.kill_switch_active:
             failed_checks.append("GLOBAL_KILL_SWITCH_ACTIVE")
             reasons.append("Global kill switch is enabled across the recovery engine")
 
@@ -93,6 +94,6 @@ class GuardrailEngine:
                 "daily_customer_actions": daily_actions_count,
                 "max_allowed_retries": max_allowed_retries,
                 "cooldown_hours": cooldown_hours,
-                "kill_switch_active": settings.GLOBAL_KILL_SWITCH
+                "kill_switch_active": self.kill_switch_active
             }
         )

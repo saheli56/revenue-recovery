@@ -3,7 +3,7 @@ import os
 import sys
 from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone
-from sqlalchemy import select, and_
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 import anthropic
 
@@ -34,9 +34,9 @@ STRATEGY_TOOL_SCHEMA = {
 }
 
 class StrategistService:
-    def __init__(self, db_session: AsyncSession):
+    def __init__(self, db_session: AsyncSession, kill_switch_active: Optional[bool] = None):
         self.session = db_session
-        self.guardrail_engine = GuardrailEngine(db_session)
+        self.guardrail_engine = GuardrailEngine(db_session, kill_switch_active=kill_switch_active)
         self.anthropic_client = (
             anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
             if settings.ANTHROPIC_API_KEY and settings.ANTHROPIC_API_KEY != "mock_or_real_key"
