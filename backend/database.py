@@ -1,21 +1,27 @@
 import os
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-from models import Base
+from sqlalchemy.orm import declarative_base
+from config import settings
 
-# Fallback to sqlite if postgres is not provided
-DATABASE_URL = os.environ.get(
-    "DATABASE_URL", 
-    "sqlite+aiosqlite:///./test.db"
+Base = declarative_base()
+
+engine = create_async_engine(
+    settings.DATABASE_URL,
+    echo=False,
+    future=True
 )
 
-engine = create_async_engine(DATABASE_URL, echo=False)
-async_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+async_session_factory = async_sessionmaker(
+    bind=engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+    autocommit=False,
+    autoflush=False
+)
 
-async def init_db():
-    async with engine.begin() as conn:
-        # For dev: simply create all tables
-        await conn.run_sync(Base.metadata.create_all)
-
-async def get_db():
-    async with async_session() as session:
-        yield session
+async def get_db_session():
+    async with async_session_factory() as session:
+        try:
+            yield session
+        finally:
+            await session.close()

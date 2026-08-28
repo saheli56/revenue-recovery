@@ -1,17 +1,30 @@
-from sqlalchemy import Column, Integer, String, Boolean, JSON, DateTime, ForeignKey, Enum, Float
-from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy.sql import func
 import enum
-import datetime
+from datetime import datetime, timezone
+from typing import Optional, Dict, Any, List
+from sqlalchemy import (
+    Integer,
+    String,
+    Float,
+    Boolean,
+    DateTime,
+    ForeignKey,
+    Enum as SQLEnum,
+    JSON,
+    Index
+)
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from database import Base
 
-Base = declarative_base()
-
-class CaseType(enum.Enum):
+class CaseType(str, enum.Enum):
     payment_failure = "payment_failure"
     checkout_abandonment = "checkout_abandonment"
     subscription_failure = "subscription_failure"
 
-class FinalStatus(enum.Enum):
+class DiagnosisMethod(str, enum.Enum):
+    rule = "rule"
+    llm = "llm"
+
+class FinalStatus(str, enum.Enum):
     recovered = "recovered"
     failed = "failed"
     escalated = "escalated"
@@ -19,60 +32,105 @@ class FinalStatus(enum.Enum):
 
 class RecoveryCase(Base):
     __tablename__ = "recovery_case"
-    id = Column(Integer, primary_key=True, index=True)
-    case_type = Column(Enum(CaseType), nullable=False)
-    source_reference = Column(String, nullable=False, unique=True)
-    customer_id = Column(String, nullable=False)
-    amount = Column(Float, nullable=False)
-    currency = Column(String, nullable=False, default="INR")
-    status = Column(String, nullable=False, default="open") # open, closed
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)
+    case_type: Mapped[CaseType] = mapped_column(SQLEnum(CaseType, name="case_type_enum"), nullable=False, index=True)
+    source_reference: Mapped[str] = mapped_column(String(255), nullable=False, unique=True, index=True)
+    customer_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    amount: Mapped[float] = mapped_column(Float, nullable=False)
+    currency: Mapped[str] = mapped_column(String(10), nullable=False, default="INR")
+    status: Mapped[str] = mapped_column(String(50), nullable=False, default="open", index=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False
+    )
+
+    diagnoses: Mapped[List["Diagnosis"]] = relationship("Diagnosis", back_populates="case", cascade="all, delete-orphan")
+    decisions: Mapped[List["Decision"]] = relationship("Decision", back_populates="case", cascade="all, delete-orphan")
+    outcomes: Mapped[List["Outcome"]] = relationship("Outcome", back_populates="case", cascade="all, delete-orphan")
+    audit_logs: Mapped[List["AuditLog"]] = relationship("AuditLog", back_populates="case", cascade="all, delete-orphan")
 
 class Diagnosis(Base):
     __tablename__ = "diagnosis"
-    id = Column(Integer, primary_key=True, index=True)
-    case_id = Column(Integer, ForeignKey("recovery_case.id"), nullable=False)
-    root_cause = Column(String, nullable=False)
-    confidence = Column(Float, nullable=False)
-    evidence = Column(JSON, nullable=False)
-    method = Column(String, nullable=False) # 'rule' or 'llm'
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)
+    case_id: Mapped[int] = mapped_column(Integer, ForeignKey("recovery_case.id", ondelete="CASCADE"), nullable=False, index=True)
+    root_cause: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    confidence: Mapped[float] = mapped_column(Float, nullable=False)
+    evidence: Mapped[Dict[str, Any]] = mapped_column(JSON, nullable=False)
+    method: Mapped[DiagnosisMethod] = mapped_column(SQLEnum(DiagnosisMethod, name="diagnosis_method_enum"), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False
+    )
+
+    case: Mapped["RecoveryCase"] = relationship("RecoveryCase", back_populates="diagnoses")
+    decisions: Mapped[List["Decision"]] = relationship("Decision", back_populates="diagnosis", cascade="all, delete-orphan")
 
 class Decision(Base):
     __tablename__ = "decision"
-    id = Column(Integer, primary_key=True, index=True)
-    case_id = Column(Integer, ForeignKey("recovery_case.id"), nullable=False)
-    diagnosis_id = Column(Integer, ForeignKey("diagnosis.id"), nullable=False)
-    chosen_action = Column(String, nullable=False)
-    justification = Column(String, nullable=False)
-    policy_rule_id = Column(String, nullable=False)
-    guardrail_checks_passed = Column(Boolean, nullable=False)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)
+    case_id: Mapped[int] = mapped_column(Integer, ForeignKey("recovery_case.id", ondelete="CASCADE"), nullable=False, index=True)
+    diagnosis_id: Mapped[int] = mapped_column(Integer, ForeignKey("diagnosis.id", ondelete="CASCADE"), nullable=False, index=True)
+    chosen_action: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    justification: Mapped[str] = mapped_column(String(1000), nullable=False)
+    policy_rule_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    guardrail_checks_passed: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False
+    )
+
+    case: Mapped["RecoveryCase"] = relationship("RecoveryCase", back_populates="decisions")
+    diagnosis: Mapped["Diagnosis"] = relationship("Diagnosis", back_populates="decisions")
+    executions: Mapped[List["Execution"]] = relationship("Execution", back_populates="decision", cascade="all, delete-orphan")
 
 class Execution(Base):
     __tablename__ = "execution"
-    id = Column(Integer, primary_key=True, index=True)
-    decision_id = Column(Integer, ForeignKey("decision.id"), nullable=False)
-    channel = Column(String, nullable=False)
-    external_reference = Column(String, nullable=True)
-    status = Column(String, nullable=False)
-    raw_response = Column(JSON, nullable=True)
-    executed_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)
+    decision_id: Mapped[int] = mapped_column(Integer, ForeignKey("decision.id", ondelete="CASCADE"), nullable=False, index=True)
+    channel: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
+    external_reference: Mapped[Optional[str]] = mapped_column(String(255), nullable=True, index=True)
+    status: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
+    raw_response: Mapped[Optional[Dict[str, Any]]] = mapped_column(JSON, nullable=True)
+    executed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False
+    )
+
+    decision: Mapped["Decision"] = relationship("Decision", back_populates="executions")
 
 class Outcome(Base):
     __tablename__ = "outcome"
-    id = Column(Integer, primary_key=True, index=True)
-    case_id = Column(Integer, ForeignKey("recovery_case.id"), nullable=False)
-    recovered = Column(Boolean, nullable=False, default=False)
-    recovered_amount = Column(Float, nullable=True)
-    recovered_at = Column(DateTime(timezone=True), nullable=True)
-    final_status = Column(Enum(FinalStatus), nullable=False)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)
+    case_id: Mapped[int] = mapped_column(Integer, ForeignKey("recovery_case.id", ondelete="CASCADE"), nullable=False, index=True)
+    recovered: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, index=True)
+    recovered_amount: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    recovered_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    final_status: Mapped[FinalStatus] = mapped_column(SQLEnum(FinalStatus, name="final_status_enum"), nullable=False, index=True)
+
+    case: Mapped["RecoveryCase"] = relationship("RecoveryCase", back_populates="outcomes")
 
 class AuditLog(Base):
     __tablename__ = "audit_log"
-    id = Column(Integer, primary_key=True, index=True)
-    case_id = Column(Integer, ForeignKey("recovery_case.id"), nullable=False)
-    stage = Column(String, nullable=False)
-    event = Column(String, nullable=False)
-    payload = Column(JSON, nullable=False)
-    timestamp = Column(DateTime(timezone=True), server_default=func.now())
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)
+    case_id: Mapped[int] = mapped_column(Integer, ForeignKey("recovery_case.id", ondelete="CASCADE"), nullable=False, index=True)
+    stage: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
+    event: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    payload: Mapped[Dict[str, Any]] = mapped_column(JSON, nullable=False)
+    timestamp: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False,
+        index=True
+    )
+
+    case: Mapped["RecoveryCase"] = relationship("RecoveryCase", back_populates="audit_logs")
