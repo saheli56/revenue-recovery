@@ -2,13 +2,46 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from config import settings
-from database import engine
+from database import engine, Base
 from api.cases import router as cases_router
 from api.analytics import router as analytics_router
 from api.policies import router as policies_router
+from datagen.generator import generate_synthetic_dataset
+from datagen.loader import load_synthetic_dataset_into_db
+from database import async_session_factory
+from pipeline.detector import DetectorService
+from pipeline.diagnoser import DiagnoserService
+from pipeline.strategist import StrategistService
+from pipeline.executor import ExecutorService
+from pipeline.tracker import OutcomeTrackerService
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    
+    try:
+        dataset = generate_synthetic_dataset(total_cases=150, random_seed=42)
+        async with async_session_factory() as session:
+            await load_synthetic_dataset_into_db(dataset, session)
+            
+            detector = DetectorService(session)
+            await detector.run_detector_batch()
+            
+            diagnoser = DiagnoserService(session)
+            await diagnoser.run_diagnoser_batch()
+            
+            strategist = StrategistService(session)
+            await strategist.run_strategist_batch()
+            
+            executor = ExecutorService(session)
+            await executor.run_executor_batch()
+            
+            tracker = OutcomeTrackerService(session)
+            await tracker.resolve_outcomes_batch()
+    except Exception:
+        pass
+        
     yield
     await engine.dispose()
 
