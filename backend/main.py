@@ -6,8 +6,7 @@ from database import engine, Base
 from api.cases import router as cases_router
 from api.analytics import router as analytics_router
 from api.policies import router as policies_router
-from datagen.generator import generate_synthetic_dataset
-from datagen.loader import load_synthetic_dataset_into_db
+from datagen.loader import load_synthetic_batch_into_db
 from database import async_session_factory
 from pipeline.detector import DetectorService
 from pipeline.diagnoser import DiagnoserService
@@ -21,12 +20,10 @@ async def lifespan(app: FastAPI):
         await conn.run_sync(Base.metadata.create_all)
     
     try:
-        dataset = generate_synthetic_dataset(total_cases=150, random_seed=42)
+        await load_synthetic_batch_into_db(clear_existing=False)
         async with async_session_factory() as session:
-            await load_synthetic_dataset_into_db(dataset, session)
-            
             detector = DetectorService(session)
-            await detector.run_detector_batch()
+            await detector.run_detection_batch()
             
             diagnoser = DiagnoserService(session)
             await diagnoser.run_diagnoser_batch()
@@ -38,7 +35,7 @@ async def lifespan(app: FastAPI):
             await executor.run_executor_batch()
             
             tracker = OutcomeTrackerService(session)
-            await tracker.resolve_outcomes_batch()
+            await tracker.run_tracker_batch()
     except Exception:
         pass
         
