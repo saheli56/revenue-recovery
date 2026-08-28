@@ -99,23 +99,26 @@ async def ingest_case(
 async def trigger_batch_run(
     req: BatchRunRequest
 ):
-    if req.seed_fresh:
-        await load_synthetic_batch_into_db(clear_existing=True)
+    try:
+        if req.seed_fresh:
+            await load_synthetic_batch_into_db(clear_existing=True)
 
-    orchestrator = BatchOrchestrator(max_concurrency=req.concurrency)
-    summary = await orchestrator.run_batch(limit=req.limit)
+        orchestrator = BatchOrchestrator(max_concurrency=min(req.concurrency, 10))
+        summary = await orchestrator.run_batch(limit=req.limit)
 
-    return {
-        "status": "completed",
-        "processed_count": summary.processed_count,
-        "total_cases": summary.total_cases,
-        "recovered_count": summary.recovered_count,
-        "total_at_risk_amount": summary.total_at_risk_amount,
-        "total_recovered_amount": summary.total_recovered_amount,
-        "net_recovery_rate_pct": round((summary.total_recovered_amount / max(summary.total_at_risk_amount, 1.0)) * 100.0, 2),
-        "elapsed_seconds": round(summary.elapsed_seconds, 2),
-        "status_breakdown": summary.status_breakdown
-    }
+        return {
+            "status": "completed",
+            "processed_count": summary.processed_count,
+            "total_cases": summary.total_cases,
+            "recovered_count": summary.recovered_count,
+            "total_at_risk_amount": summary.total_at_risk_amount,
+            "total_recovered_amount": summary.total_recovered_amount,
+            "net_recovery_rate_pct": round((summary.total_recovered_amount / max(summary.total_at_risk_amount, 1.0)) * 100.0, 2),
+            "elapsed_seconds": round(summary.elapsed_seconds, 2),
+            "status_breakdown": summary.status_breakdown
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("", response_model=PaginatedCasesResponse, dependencies=[Depends(verify_api_key)])
 async def list_cases(
