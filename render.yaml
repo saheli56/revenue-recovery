@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: razorpay-recovery-api
+    runtime: python
+    region: singapore
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt && python scripts/init_db.py && python pipeline/run_tracker.py
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:///./recovery.db
+      - key: API_AUTH_TOKEN
+        value: secret-admin-token
+      - key: GLOBAL_KILL_SWITCH
+        value: "false"
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
