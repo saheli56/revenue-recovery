@@ -20,7 +20,7 @@ The AI Revenue Recovery Engine resolves this with a deterministic 5-stage closed
                  │ (Qualified Genuine Cases)
                  ▼
      ┌───────────────────────┐
-     │   2. Diagnoser Stage  │  --> Deterministic rule mapping + Claude LLM fallback
+     │   2. Diagnoser Stage  │  --> Deterministic rule mapping + Groq / Gemini Flash LLM fallback
      └───────────┬───────────┘
                  │ (Root Cause & Confidence Score)
                  ▼
@@ -51,7 +51,7 @@ The AI Revenue Recovery Engine resolves this with a deterministic 5-stage closed
 ### Stage 2: Diagnoser
 - **Hybrid Architecture**:
   1. *Tier 1 (Deterministic)*: Instantly maps known gateway error codes (`card_expired`, `insufficient_funds`, `issuer_timeout`, `authentication_failed`, `cart_abandoned`) with 1.0 confidence.
-  2. *Tier 2 (Claude LLM Fallback)*: When errors are ambiguous or accompanied by Hinglish customer support notes (e.g., *"bhai paise cut gaye par order confirm nahi hua"*), structured tool-calling diagnoses the root cause into a strictly bounded taxonomy.
+  2. *Tier 2 (Groq & Gemini Flash Cascading Fallback)*: When errors are ambiguous or accompanied by Hinglish customer support notes (e.g., *"bhai paise cut gaye par order confirm nahi hua"*), high-throughput inference classifies the root cause into a strictly bounded taxonomy with zero cold start.
 
 ### Stage 3: Strategist & Policy Engine
 - **Responsibility**: Matches diagnosed root cause against the 12 registered policy rules.
@@ -88,7 +88,7 @@ The AI Revenue Recovery Engine resolves this with a deterministic 5-stage closed
 
 ## 4. Tech Stack
 
-- **Backend**: Python 3.11+, FastAPI 0.115, SQLAlchemy 2.0 (Async), Alembic, aiosqlite / asyncpg, Anthropic Python SDK, Pydantic v2, Pytest.
+- **Backend**: Python 3.11+, FastAPI 0.115, SQLAlchemy 2.0 (Async), Alembic, aiosqlite / asyncpg, Groq & Google Gemini SDKs, Pydantic v2, Pytest.
 - **Frontend**: React 19, TypeScript, Vite 8, Tailwind CSS v4, Lucide React, Shadcn-style neutral design system.
 - **Infrastructure**: Docker, Docker Compose, Nginx, PostgreSQL.
 

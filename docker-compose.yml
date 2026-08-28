@@ -23,7 +23,8 @@ services:
     container_name: recovery_api
     environment:
       DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/recovery_db
-      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-rzp_test_mock_key}
       RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET:-rzp_test_mock_secret}
       API_AUTH_TOKEN: ${API_AUTH_TOKEN:-secret-admin-token}

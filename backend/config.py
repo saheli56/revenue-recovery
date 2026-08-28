@@ -4,7 +4,12 @@ from typing import Optional
 class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     DATABASE_URL: str = "sqlite+aiosqlite:///./recovery.db"
-    ANTHROPIC_API_KEY: Optional[str] = None
+    
+    GROQ_API_KEY: Optional[str] = None
+    GEMINI_API_KEY: Optional[str] = None
+    
+    GROQ_MODEL: str = "llama-3.3-70b-versatile"
+    
     RAZORPAY_KEY_ID: Optional[str] = "rzp_test_mock_key"
     RAZORPAY_KEY_SECRET: Optional[str] = "rzp_test_mock_secret"
     API_AUTH_TOKEN: str = "secret-admin-token"

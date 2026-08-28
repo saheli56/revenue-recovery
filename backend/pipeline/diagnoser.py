@@ -3,10 +3,10 @@ import os
 import sys
 from typing import Optional, Dict, Any, Tuple, List
 from datetime import datetime, timezone
+import httpx
 from pydantic import BaseModel, Field
 from sqlalchemy import select, and_
 from sqlalchemy.ext.asyncio import AsyncSession
-import anthropic
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
@@ -18,66 +18,32 @@ class StructuredDiagnosisOutput(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0, description="Confidence score between 0.0 and 1.0")
     evidence: Dict[str, Any] = Field(description="Evidence dictionary supporting the diagnosis")
 
-DIAGNOSIS_TOOL_SCHEMA = {
-    "name": "record_diagnosis",
-    "description": "Records the root cause diagnosis with confidence and evidence for a failed transaction or abandonment.",
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "root_cause": {
-                "type": "string",
-                "enum": [
-                    "insufficient_funds",
-                    "card_expired",
-                    "issuer_timeout",
-                    "authentication_failed",
-                    "gateway_declined",
-                    "customer_dispute_or_charged_unconfirmed",
-                    "otp_latency_timeout",
-                    "high_intent_abandonment",
-                    "price_sensitive_abandonment",
-                    "subscription_mandate_exhausted",
-                    "subscription_card_update_needed",
-                    "technical_unknown_error"
-                ]
-            },
-            "confidence": {
-                "type": "number",
-                "minimum": 0.0,
-                "maximum": 1.0
-            },
-            "evidence": {
-                "type": "object",
-                "properties": {
-                    "detected_intent": {"type": "string"},
-                    "extracted_keywords": {"type": "array", "items": {"type": "string"}},
-                    "signals_used": {"type": "array", "items": {"type": "string"}}
-                },
-                "required": ["signals_used"]
-            }
-        },
-        "required": ["root_cause", "confidence", "evidence"]
-    }
-}
+GEMINI_FLASH_CASCADING_MODELS = [
+    "gemini-3.5-flash-lite",
+    "gemini-3.1-flash-lite",
+    "gemini-2.5-flash-lite",
+    "gemini-3.5-flash",
+    "gemini-3.6-flash",
+    "gemini-3.7-flash",
+    "gemini-3-flash-preview",
+    "gemini-2.5-flash",
+    "gemini-omni-1.1-flash"
+]
 
 class DiagnoserService:
     def __init__(self, db_session: AsyncSession):
         self.session = db_session
-        self.anthropic_client = (
-            anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
-            if settings.ANTHROPIC_API_KEY and settings.ANTHROPIC_API_KEY != "mock_or_real_key"
-            else None
-        )
 
     def is_ambiguous_case(self, case: RecoveryCase, raw_payload: Dict[str, Any]) -> bool:
-        note = raw_payload.get("customer_note", "")
-        hinglish_keywords = ["Paise", "gaye", "Bhai", "karna", "nahi", "raha", "chhod", "OTP", "kat", "dekh"]
-        has_hinglish = any(word in note for word in hinglish_keywords)
+        note = raw_payload.get("customer_note", "") or raw_payload.get("notes", "") or raw_payload.get("customer_inquiry", "")
+        hinglish_keywords = ["paise", "gaye", "bhai", "karna", "nahi", "raha", "chhod", "otp", "kat", "dekh", "cut", "debit", "kat gaya"]
+        note_lower = note.lower()
+        has_hinglish = any(word in note_lower for word in hinglish_keywords)
         error_code = raw_payload.get("error_code")
 
         if has_hinglish:
             return True
-        if error_code == "BAD_REQUEST_ERROR":
+        if error_code in ["BAD_REQUEST_ERROR", "technical_error", "gateway_error", "UNKNOWN"]:
             return True
         if case.case_type == CaseType.payment_failure and not error_code:
             return True
@@ -131,11 +97,93 @@ class DiagnoserService:
 
         return None
 
+    async def _call_groq_llm(self, system_prompt: str, user_content: str) -> Optional[Tuple[str, float, Dict[str, Any]]]:
+        if not settings.GROQ_API_KEY or settings.GROQ_API_KEY == "mock_key":
+            return None
+            
+        url = "https://api.groq.com/openai/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {settings.GROQ_API_KEY}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": settings.GROQ_MODEL,
+            "messages": [
+                {"role": "system", "content": system_prompt + "\nReturn strictly JSON formatted with keys: root_cause (enum string), confidence (float between 0 and 1), evidence (object)."},
+                {"role": "user", "content": user_content}
+            ],
+            "response_format": {"type": "json_object"},
+            "temperature": 0.1
+        }
+        
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            try:
+                res = await client.post(url, headers=headers, json=payload)
+                if res.status_code == 200:
+                    data = res.json()
+                    content = data["choices"][0]["message"]["content"]
+                    parsed = json.loads(content)
+                    return (
+                        parsed.get("root_cause", "technical_unknown_error"),
+                        float(parsed.get("confidence", 0.90)),
+                        parsed.get("evidence", {"provider": "groq", "model": settings.GROQ_MODEL})
+                    )
+            except Exception:
+                return None
+        return None
+
+    async def _call_gemini_llm(self, system_prompt: str, user_content: str) -> Optional[Tuple[str, float, Dict[str, Any]]]:
+        if not settings.GEMINI_API_KEY or settings.GEMINI_API_KEY == "mock_key":
+            return None
+
+        prompt_text = (
+            f"{system_prompt}\n"
+            f"Analyze this payload and return strictly a valid JSON object with keys: root_cause, confidence, evidence.\n"
+            f"Allowed root_cause values: insufficient_funds, card_expired, issuer_timeout, authentication_failed, "
+            f"gateway_declined, customer_dispute_or_charged_unconfirmed, otp_latency_timeout, "
+            f"high_intent_abandonment, price_sensitive_abandonment, subscription_mandate_exhausted, "
+            f"subscription_card_update_needed, technical_unknown_error.\n\n"
+            f"Payload: {user_content}"
+        )
+
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            for model_name in GEMINI_FLASH_CASCADING_MODELS:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={settings.GEMINI_API_KEY}"
+                payload = {
+                    "contents": [{"parts": [{"text": prompt_text}]}],
+                    "generationConfig": {
+                        "response_mime_type": "application/json",
+                        "temperature": 0.1
+                    }
+                }
+                try:
+                    res = await client.post(url, json=payload)
+                    if res.status_code == 200:
+                        data = res.json()
+                        candidates = data.get("candidates", [])
+                        if candidates:
+                            raw_text = candidates[0]["content"]["parts"][0]["text"]
+                            parsed = json.loads(raw_text)
+                            evidence = parsed.get("evidence", {})
+                            if isinstance(evidence, dict):
+                                evidence["provider"] = "gemini"
+                                evidence["model"] = model_name
+                            else:
+                                evidence = {"provider": "gemini", "model": model_name, "raw_evidence": evidence}
+                            return (
+                                parsed.get("root_cause", "technical_unknown_error"),
+                                float(parsed.get("confidence", 0.92)),
+                                evidence
+                            )
+                except Exception:
+                    continue
+        return None
+
     async def diagnose_with_llm(self, case: RecoveryCase, raw_payload: Dict[str, Any]) -> Tuple[str, float, Dict[str, Any]]:
         system_prompt = (
-            "You are the expert Diagnoser agent in an AI Revenue Recovery Engine. "
-            "Analyze the ambiguous transaction or regional language note, and extract the exact root cause, "
-            "confidence score, and supporting signals using the record_diagnosis tool."
+            "You are the expert Diagnoser agent in an AI Revenue Recovery Engine for Razorpay. "
+            "Analyze the ambiguous transaction, Hinglish regional support note, or dropoff context. "
+            "Extract the exact root cause, confidence score (0.0 - 1.0), and supporting evidence signals."
         )
 
         user_content = json.dumps({
@@ -145,39 +193,25 @@ class DiagnoserService:
             "raw_payload": raw_payload
         })
 
-        if self.anthropic_client:
-            try:
-                response = await self.anthropic_client.messages.create(
-                    model="claude-3-5-sonnet-20241022",
-                    max_tokens=500,
-                    system=system_prompt,
-                    messages=[{"role": "user", "content": user_content}],
-                    tools=[DIAGNOSIS_TOOL_SCHEMA],
-                    tool_choice={"type": "tool", "name": "record_diagnosis"}
-                )
+        groq_result = await self._call_groq_llm(system_prompt, user_content)
+        if groq_result:
+            return groq_result
 
-                for block in response.content:
-                    if block.type == "tool_use" and block.name == "record_diagnosis":
-                        input_data = block.input
-                        return (
-                            input_data["root_cause"],
-                            float(input_data["confidence"]),
-                            input_data["evidence"]
-                        )
-            except Exception as exc:
-                pass
+        gemini_result = await self._call_gemini_llm(system_prompt, user_content)
+        if gemini_result:
+            return gemini_result
 
-        note = raw_payload.get("customer_note", "").lower()
+        note = str(raw_payload.get("customer_note", "") or raw_payload.get("notes", "") or raw_payload.get("customer_inquiry", "")).lower()
         if "otp" in note:
-            return "otp_latency_timeout", 0.88, {"detected_intent": "otp_delivery_failure", "signals_used": ["customer_note_otp"]}
-        if "cut" in note or "debit" in note or "kat" in note:
-            return "customer_dispute_or_charged_unconfirmed", 0.92, {"detected_intent": "money_deducted_unconfirmed", "signals_used": ["hinglish_debit_keywords"]}
+            return "otp_latency_timeout", 0.88, {"detected_intent": "otp_delivery_failure", "signals_used": ["customer_note_otp"], "provider": "rule_fallback"}
+        if "cut" in note or "debit" in note or "kat" in note or "paise" in note:
+            return "customer_dispute_or_charged_unconfirmed", 0.92, {"detected_intent": "money_deducted_unconfirmed", "signals_used": ["hinglish_debit_keywords"], "provider": "rule_fallback"}
         if "expired" in note:
-            return "card_expired", 0.95, {"detected_intent": "card_expiry_reported", "signals_used": ["customer_note_expiry"]}
+            return "card_expired", 0.95, {"detected_intent": "card_expiry_reported", "signals_used": ["customer_note_expiry"], "provider": "rule_fallback"}
         if "discount" in note or "chhod" in note:
-            return "price_sensitive_abandonment", 0.89, {"detected_intent": "coupon_dropoff", "signals_used": ["cart_coupon_note"]}
+            return "price_sensitive_abandonment", 0.89, {"detected_intent": "coupon_dropoff", "signals_used": ["cart_coupon_note"], "provider": "rule_fallback"}
 
-        return "technical_unknown_error", 0.65, {"detected_intent": "unclassified_ambiguity", "signals_used": ["fallback_classifier"]}
+        return "technical_unknown_error", 0.65, {"detected_intent": "unclassified_ambiguity", "signals_used": ["fallback_classifier"], "provider": "rule_fallback"}
 
     async def diagnose_single_case(self, case_id: int) -> Optional[Diagnosis]:
         case = await self.session.get(RecoveryCase, case_id)

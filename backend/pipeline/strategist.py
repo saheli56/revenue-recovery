@@ -5,7 +5,7 @@ from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-import anthropic
+import httpx
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
@@ -14,34 +14,10 @@ from models import RecoveryCase, Diagnosis, Decision, AuditLog
 from pipeline.policy_rules import get_policy_rule_for_root_cause, PolicyRule
 from pipeline.guardrails import GuardrailEngine, GuardrailResult
 
-STRATEGY_TOOL_SCHEMA = {
-    "name": "select_bounded_action",
-    "description": "Selects a recovery action strictly from the permitted policy actions and provides a human-readable justification.",
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "chosen_action": {
-                "type": "string",
-                "description": "The exact selected action from the permitted set"
-            },
-            "justification": {
-                "type": "string",
-                "description": "Detailed reasoning and rationale for why this action was selected"
-            }
-        },
-        "required": ["chosen_action", "justification"]
-    }
-}
-
 class StrategistService:
     def __init__(self, db_session: AsyncSession, kill_switch_active: Optional[bool] = None):
         self.session = db_session
         self.guardrail_engine = GuardrailEngine(db_session, kill_switch_active=kill_switch_active)
-        self.anthropic_client = (
-            anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
-            if settings.ANTHROPIC_API_KEY and settings.ANTHROPIC_API_KEY != "mock_or_real_key"
-            else None
-        )
 
     async def select_bounded_action_with_llm(
         self,
@@ -52,11 +28,17 @@ class StrategistService:
         if len(rule.allowed_actions) == 1:
             return rule.default_action, rule.template_justification
 
-        if self.anthropic_client:
+        if settings.GROQ_API_KEY and settings.GROQ_API_KEY != "mock_key":
             try:
+                url = "https://api.groq.com/openai/v1/chat/completions"
+                headers = {
+                    "Authorization": f"Bearer {settings.GROQ_API_KEY}",
+                    "Content-Type": "application/json"
+                }
                 system_prompt = (
-                    "You are the Strategist agent in an AI Revenue Recovery Engine. "
-                    "Select exactly one action from the permitted policy list and justify it."
+                    "You are the Strategist in an AI Revenue Recovery Engine for Razorpay. "
+                    "Select exactly one action from allowed_actions and provide a concise justification. "
+                    "Return JSON with keys: chosen_action, justification."
                 )
                 user_msg = json.dumps({
                     "root_cause": diagnosis.root_cause,
@@ -64,18 +46,22 @@ class StrategistService:
                     "allowed_actions": rule.allowed_actions,
                     "policy_rule_id": rule.rule_id
                 })
-                response = await self.anthropic_client.messages.create(
-                    model="claude-3-5-sonnet-20241022",
-                    max_tokens=300,
-                    system=system_prompt,
-                    messages=[{"role": "user", "content": user_msg}],
-                    tools=[STRATEGY_TOOL_SCHEMA],
-                    tool_choice={"type": "tool", "name": "select_bounded_action"}
-                )
-                for block in response.content:
-                    if block.type == "tool_use" and block.name == "select_bounded_action":
-                        action = block.input.get("chosen_action")
-                        justification = block.input.get("justification")
+                payload = {
+                    "model": settings.GROQ_MODEL,
+                    "messages": [
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_msg}
+                    ],
+                    "response_format": {"type": "json_object"},
+                    "temperature": 0.1
+                }
+                async with httpx.AsyncClient(timeout=5.0) as client:
+                    res = await client.post(url, headers=headers, json=payload)
+                    if res.status_code == 200:
+                        data = res.json()
+                        parsed = json.loads(data["choices"][0]["message"]["content"])
+                        action = parsed.get("chosen_action")
+                        justification = parsed.get("justification")
                         if action in rule.allowed_actions:
                             return action, justification
             except Exception:
