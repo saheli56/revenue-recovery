@@ -38,8 +38,6 @@ class BatchExecutionSummary:
     case_results: List[CaseExecutionResult] = field(default_factory=list)
     elapsed_seconds: float = 0.0
 
-_db_lock = asyncio.Lock()
-
 # Global top-level batch execution cache to return instantaneous results for idempotent runs
 _BATCH_RUN_CACHE: Dict[str, BatchExecutionSummary] = {}
 
