@@ -38,103 +38,106 @@ class BatchExecutionSummary:
     case_results: List[CaseExecutionResult] = field(default_factory=list)
     elapsed_seconds: float = 0.0
 
+_db_lock = asyncio.Lock()
+
 class BatchOrchestrator:
     def __init__(self, max_concurrency: int = 5):
         self.semaphore = asyncio.Semaphore(max_concurrency)
 
     async def process_single_case_pipeline(self, case_id: int) -> CaseExecutionResult:
         async with self.semaphore:
-            stages_completed: List[str] = []
-            async with async_session_factory() as session:
-                case = await session.get(RecoveryCase, case_id)
-                if not case:
-                    return CaseExecutionResult(
-                        case_id=case_id,
-                        source_reference="unknown",
-                        amount=0.0,
-                        final_status="not_found",
-                        is_recovered=False,
-                        error="Case not found in database"
-                    )
+            async with _db_lock:
+                stages_completed: List[str] = []
+                async with async_session_factory() as session:
+                    case = await session.get(RecoveryCase, case_id)
+                    if not case:
+                        return CaseExecutionResult(
+                            case_id=case_id,
+                            source_reference="unknown",
+                            amount=0.0,
+                            final_status="not_found",
+                            is_recovered=False,
+                            error="Case not found in database"
+                        )
 
-                source_ref = case.source_reference
-                amount = case.amount
+                    source_ref = case.source_reference
+                    amount = case.amount
 
-                try:
-                    detector = DetectorService(session)
-                    det_res = await detector.detect_single_case(case_id)
-                    stages_completed.append("detector")
+                    try:
+                        detector = DetectorService(session)
+                        det_res = await detector.detect_single_case(case_id)
+                        stages_completed.append("detector")
 
-                    if not det_res or det_res.is_excluded:
+                        if not det_res or det_res.is_excluded:
+                            tracker = OutcomeTrackerService(session)
+                            out_res = await tracker.resolve_case_outcome(case_id)
+                            await session.commit()
+                            stages_completed.append("tracker")
+                            return CaseExecutionResult(
+                                case_id=case_id,
+                                source_reference=source_ref,
+                                amount=amount,
+                                final_status=FinalStatus.stopped_by_policy.value,
+                                is_recovered=False,
+                                stages_completed=stages_completed
+                            )
+
+                        diagnoser = DiagnoserService(session)
+                        diag = await diagnoser.diagnose_single_case(case_id)
+                        stages_completed.append("diagnoser")
+
+                        strategist = StrategistService(session)
+                        decision = await strategist.decide_single_case(case_id)
+                        stages_completed.append("strategist")
+
+                        executor = ExecutorService(session)
+                        execution = await executor.execute_single_decision(decision.id)
+                        stages_completed.append("executor")
+
                         tracker = OutcomeTrackerService(session)
-                        out_res = await tracker.resolve_case_outcome(case_id)
-                        await session.commit()
+                        outcome = await tracker.resolve_case_outcome(case_id)
                         stages_completed.append("tracker")
+
+                        await session.commit()
+
                         return CaseExecutionResult(
                             case_id=case_id,
                             source_reference=source_ref,
                             amount=amount,
-                            final_status=FinalStatus.stopped_by_policy.value,
-                            is_recovered=False,
+                            final_status=outcome.final_status.value if outcome else "completed",
+                            is_recovered=outcome.recovered if outcome else False,
                             stages_completed=stages_completed
                         )
 
-                    diagnoser = DiagnoserService(session)
-                    diag = await diagnoser.diagnose_single_case(case_id)
-                    stages_completed.append("diagnoser")
+                    except Exception as exc:
+                        await session.rollback()
+                        async with async_session_factory() as err_session:
+                            err_case = await err_session.get(RecoveryCase, case_id)
+                            if err_case:
+                                err_case.status = "stage_failure"
+                                err_audit = AuditLog(
+                                    case_id=case_id,
+                                    stage="orchestrator",
+                                    event="stage_execution_failed",
+                                    payload={
+                                        "error": str(exc),
+                                        "stages_completed": stages_completed,
+                                        "timestamp": datetime.now(timezone.utc).isoformat()
+                                    },
+                                    timestamp=datetime.now(timezone.utc)
+                                )
+                                err_session.add(err_audit)
+                                await err_session.commit()
 
-                    strategist = StrategistService(session)
-                    decision = await strategist.decide_single_case(case_id)
-                    stages_completed.append("strategist")
-
-                    executor = ExecutorService(session)
-                    execution = await executor.execute_single_decision(decision.id)
-                    stages_completed.append("executor")
-
-                    tracker = OutcomeTrackerService(session)
-                    outcome = await tracker.resolve_case_outcome(case_id)
-                    stages_completed.append("tracker")
-
-                    await session.commit()
-
-                    return CaseExecutionResult(
-                        case_id=case_id,
-                        source_reference=source_ref,
-                        amount=amount,
-                        final_status=outcome.final_status.value if outcome else "completed",
-                        is_recovered=outcome.recovered if outcome else False,
-                        stages_completed=stages_completed
-                    )
-
-                except Exception as exc:
-                    await session.rollback()
-                    async with async_session_factory() as err_session:
-                        err_case = await err_session.get(RecoveryCase, case_id)
-                        if err_case:
-                            err_case.status = "stage_failure"
-                            err_audit = AuditLog(
-                                case_id=case_id,
-                                stage="orchestrator",
-                                event="stage_execution_failed",
-                                payload={
-                                    "error": str(exc),
-                                    "stages_completed": stages_completed,
-                                    "timestamp": datetime.now(timezone.utc).isoformat()
-                                },
-                                timestamp=datetime.now(timezone.utc)
-                            )
-                            err_session.add(err_audit)
-                            await err_session.commit()
-
-                    return CaseExecutionResult(
-                        case_id=case_id,
-                        source_reference=source_ref,
-                        amount=amount,
-                        final_status="stage_failure",
-                        is_recovered=False,
-                        stages_completed=stages_completed,
-                        error=str(exc)
-                    )
+                        return CaseExecutionResult(
+                            case_id=case_id,
+                            source_reference=source_ref,
+                            amount=amount,
+                            final_status="stage_failure",
+                            is_recovered=False,
+                            stages_completed=stages_completed,
+                            error=str(exc)
+                        )
 
     async def run_batch(self, limit: Optional[int] = None) -> BatchExecutionSummary:
         start_time = datetime.now(timezone.utc)

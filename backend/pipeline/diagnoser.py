@@ -168,8 +168,10 @@ class DiagnoserService:
                             if isinstance(evidence, dict):
                                 evidence["provider"] = "gemini"
                                 evidence["model"] = model_name
+                                if "signals_used" not in evidence:
+                                    evidence["signals_used"] = ["gemini_llm_inference", model_name]
                             else:
-                                evidence = {"provider": "gemini", "model": model_name, "raw_evidence": evidence}
+                                evidence = {"provider": "gemini", "model": model_name, "signals_used": ["gemini_llm_inference"], "raw_evidence": evidence}
                             return (
                                 parsed.get("root_cause", "technical_unknown_error"),
                                 float(parsed.get("confidence", 0.92)),

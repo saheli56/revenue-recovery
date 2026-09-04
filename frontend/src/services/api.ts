@@ -92,7 +92,10 @@ export const api = {
         seed_fresh: options.seed_fresh ?? false,
       }),
     });
-    if (!res.ok) throw new Error('Batch orchestration failed');
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: 'Batch orchestration failed' }));
+      throw new Error(err.detail || 'Batch orchestration failed');
+    }
     return res.json();
   },
 
