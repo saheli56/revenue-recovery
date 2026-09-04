@@ -18,17 +18,42 @@ class StructuredDiagnosisOutput(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0, description="Confidence score between 0.0 and 1.0")
     evidence: Dict[str, Any] = Field(description="Evidence dictionary supporting the diagnosis")
 
-GEMINI_FLASH_CASCADING_MODELS = [
-    "gemini-3.5-flash-lite",
-    "gemini-3.1-flash-lite",
-    "gemini-2.5-flash-lite",
-    "gemini-3.5-flash",
-    "gemini-3.6-flash",
-    "gemini-3.7-flash",
-    "gemini-3-flash-preview",
+import asyncio
+import time
+
+GEMINI_VERIFIED_MODELS = [
     "gemini-2.5-flash",
-    "gemini-omni-1.1-flash"
+    "gemini-2.5-flash-lite",
+    "gemini-flash-latest"
 ]
+
+GROQ_VERIFIED_MODELS = [
+    "groq/compound-mini",
+    "openai/gpt-oss-20b"
+]
+
+# Global LRU-style in-memory cache to prevent duplicate LLM calls for identical/similar inputs
+_DIAGNOSIS_CACHE: Dict[str, Tuple[str, float, Dict[str, Any]]] = {}
+# Concurrency semaphore to bound simultaneous outbound LLM calls and protect rate limits (RPM/TPM)
+_LLM_SEMAPHORE = asyncio.Semaphore(3)
+# Circuit breaker timestamp to immediately bypass failing/rate-limited APIs
+_CIRCUIT_BREAKER_UNTIL: float = 0.0
+_CONSECUTIVE_FAILURES: int = 0
+
+def _normalize_evidence(evidence: Any, provider: str, model: str) -> Dict[str, Any]:
+    if isinstance(evidence, dict):
+        ev = dict(evidence)
+        ev["provider"] = provider
+        ev["model"] = model
+        if "signals_used" not in ev:
+            ev["signals_used"] = [f"{provider}_inference", model]
+        return ev
+    elif isinstance(evidence, list):
+        return {"provider": provider, "model": model, "signals_used": evidence}
+    elif isinstance(evidence, str):
+        return {"provider": provider, "model": model, "signals_used": [evidence], "summary": evidence}
+    else:
+        return {"provider": provider, "model": model, "signals_used": [f"{provider}_inference"]}
 
 class DiagnoserService:
     def __init__(self, db_session: AsyncSession):
@@ -98,42 +123,64 @@ class DiagnoserService:
         return None
 
     async def _call_groq_llm(self, system_prompt: str, user_content: str) -> Optional[Tuple[str, float, Dict[str, Any]]]:
+        global _CIRCUIT_BREAKER_UNTIL, _CONSECUTIVE_FAILURES
         if not settings.GROQ_API_KEY or settings.GROQ_API_KEY == "mock_key":
             return None
-            
+        if time.time() < _CIRCUIT_BREAKER_UNTIL:
+            return None
+
+        models_to_try = [settings.GROQ_MODEL] if settings.GROQ_MODEL in GROQ_VERIFIED_MODELS else GROQ_VERIFIED_MODELS
         url = "https://api.groq.com/openai/v1/chat/completions"
         headers = {
             "Authorization": f"Bearer {settings.GROQ_API_KEY}",
             "Content-Type": "application/json"
         }
-        payload = {
-            "model": settings.GROQ_MODEL,
-            "messages": [
-                {"role": "system", "content": system_prompt + "\nReturn strictly JSON formatted with keys: root_cause (enum string), confidence (float between 0 and 1), evidence (object)."},
-                {"role": "user", "content": user_content}
-            ],
-            "response_format": {"type": "json_object"},
-            "temperature": 0.1
-        }
-        
-        async with httpx.AsyncClient(timeout=8.0) as client:
-            try:
-                res = await client.post(url, headers=headers, json=payload)
-                if res.status_code == 200:
-                    data = res.json()
-                    content = data["choices"][0]["message"]["content"]
-                    parsed = json.loads(content)
-                    return (
-                        parsed.get("root_cause", "technical_unknown_error"),
-                        float(parsed.get("confidence", 0.90)),
-                        parsed.get("evidence", {"provider": "groq", "model": settings.GROQ_MODEL})
-                    )
-            except Exception:
-                return None
+
+        async with _LLM_SEMAPHORE:
+            async with httpx.AsyncClient(timeout=2.5) as client:
+                for model in models_to_try:
+                    payload = {
+                        "model": model,
+                        "messages": [
+                            {"role": "system", "content": system_prompt + "\nReturn strictly a JSON object with keys: root_cause, confidence, evidence."},
+                            {"role": "user", "content": user_content}
+                        ],
+                        "response_format": {"type": "json_object"},
+                        "temperature": 0.1,
+                        "max_tokens": 120
+                    }
+                    try:
+                        res = await client.post(url, headers=headers, json=payload)
+                        if res.status_code == 200:
+                            data = res.json()
+                            content = data["choices"][0]["message"]["content"]
+                            parsed = json.loads(content)
+                            _CONSECUTIVE_FAILURES = 0
+                            ev = _normalize_evidence(parsed.get("evidence"), "groq", model)
+                            return (
+                                parsed.get("root_cause", "technical_unknown_error"),
+                                float(parsed.get("confidence", 0.92)),
+                                ev
+                            )
+                        elif res.status_code == 429:
+                            _CONSECUTIVE_FAILURES += 1
+                            if _CONSECUTIVE_FAILURES >= 2:
+                                _CIRCUIT_BREAKER_UNTIL = time.time() + 20.0
+                            return None
+                        elif res.status_code in [400, 401, 403, 404]:
+                            continue
+                    except Exception:
+                        _CONSECUTIVE_FAILURES += 1
+                        if _CONSECUTIVE_FAILURES >= 3:
+                            _CIRCUIT_BREAKER_UNTIL = time.time() + 15.0
+                        return None
         return None
 
     async def _call_gemini_llm(self, system_prompt: str, user_content: str) -> Optional[Tuple[str, float, Dict[str, Any]]]:
+        global _CIRCUIT_BREAKER_UNTIL, _CONSECUTIVE_FAILURES
         if not settings.GEMINI_API_KEY or settings.GEMINI_API_KEY == "mock_key":
+            return None
+        if time.time() < _CIRCUIT_BREAKER_UNTIL:
             return None
 
         prompt_text = (
@@ -146,42 +193,58 @@ class DiagnoserService:
             f"Payload: {user_content}"
         )
 
-        async with httpx.AsyncClient(timeout=8.0) as client:
-            for model_name in GEMINI_FLASH_CASCADING_MODELS:
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={settings.GEMINI_API_KEY}"
-                payload = {
-                    "contents": [{"parts": [{"text": prompt_text}]}],
-                    "generationConfig": {
-                        "response_mime_type": "application/json",
-                        "temperature": 0.1
+        async with _LLM_SEMAPHORE:
+            async with httpx.AsyncClient(timeout=2.5) as client:
+                for model_name in GEMINI_VERIFIED_MODELS[:2]:
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={settings.GEMINI_API_KEY}"
+                    payload = {
+                        "contents": [{"parts": [{"text": prompt_text}]}],
+                        "generationConfig": {
+                            "response_mime_type": "application/json",
+                            "temperature": 0.1,
+                            "maxOutputTokens": 120
+                        }
                     }
-                }
-                try:
-                    res = await client.post(url, json=payload)
-                    if res.status_code == 200:
-                        data = res.json()
-                        candidates = data.get("candidates", [])
-                        if candidates:
-                            raw_text = candidates[0]["content"]["parts"][0]["text"]
-                            parsed = json.loads(raw_text)
-                            evidence = parsed.get("evidence", {})
-                            if isinstance(evidence, dict):
-                                evidence["provider"] = "gemini"
-                                evidence["model"] = model_name
-                                if "signals_used" not in evidence:
-                                    evidence["signals_used"] = ["gemini_llm_inference", model_name]
-                            else:
-                                evidence = {"provider": "gemini", "model": model_name, "signals_used": ["gemini_llm_inference"], "raw_evidence": evidence}
-                            return (
-                                parsed.get("root_cause", "technical_unknown_error"),
-                                float(parsed.get("confidence", 0.92)),
-                                evidence
-                            )
-                except Exception:
-                    continue
+                    try:
+                        res = await client.post(url, json=payload)
+                        if res.status_code == 200:
+                            data = res.json()
+                            candidates = data.get("candidates", [])
+                            if candidates:
+                                raw_text = candidates[0]["content"]["parts"][0]["text"]
+                                parsed = json.loads(raw_text)
+                                ev = _normalize_evidence(parsed.get("evidence"), "gemini", model_name)
+                                _CONSECUTIVE_FAILURES = 0
+                                return (
+                                    parsed.get("root_cause", "technical_unknown_error"),
+                                    float(parsed.get("confidence", 0.92)),
+                                    ev
+                                )
+                        elif res.status_code == 429:
+                            _CONSECUTIVE_FAILURES += 1
+                            if _CONSECUTIVE_FAILURES >= 2:
+                                _CIRCUIT_BREAKER_UNTIL = time.time() + 20.0
+                            return None
+                        elif res.status_code in [400, 401, 403, 404]:
+                            break
+                    except Exception:
+                        _CONSECUTIVE_FAILURES += 1
+                        if _CONSECUTIVE_FAILURES >= 3:
+                            _CIRCUIT_BREAKER_UNTIL = time.time() + 15.0
+                        break
         return None
 
     async def diagnose_with_llm(self, case: RecoveryCase, raw_payload: Dict[str, Any]) -> Tuple[str, float, Dict[str, Any]]:
+        # Check in-memory deduplication cache first to save rate limits & latency
+        note_str = str(raw_payload.get("customer_note", "") or raw_payload.get("notes", "") or raw_payload.get("customer_inquiry", "")).strip().lower()
+        cache_key = f"{case.case_type.value}:{note_str}:{raw_payload.get('error_code', '')}"
+        
+        if cache_key in _DIAGNOSIS_CACHE:
+            cached = _DIAGNOSIS_CACHE[cache_key]
+            ev = dict(cached[2]) if isinstance(cached[2], dict) else {"raw_evidence": cached[2]}
+            ev["cache_hit"] = True
+            return cached[0], cached[1], ev
+
         system_prompt = (
             "You are the expert Diagnoser agent in an AI Revenue Recovery Engine for Razorpay. "
             "Analyze the ambiguous transaction, Hinglish regional support note, or dropoff context. "
@@ -195,25 +258,33 @@ class DiagnoserService:
             "raw_payload": raw_payload
         })
 
+        # Try Groq verified model
         groq_result = await self._call_groq_llm(system_prompt, user_content)
         if groq_result:
+            _DIAGNOSIS_CACHE[cache_key] = groq_result
             return groq_result
 
+        # Fallback to Gemini verified model
         gemini_result = await self._call_gemini_llm(system_prompt, user_content)
         if gemini_result:
+            _DIAGNOSIS_CACHE[cache_key] = gemini_result
             return gemini_result
 
-        note = str(raw_payload.get("customer_note", "") or raw_payload.get("notes", "") or raw_payload.get("customer_inquiry", "")).lower()
+        # Fast deterministic regional NLP fallback (instant 0.0001s resolution)
+        note = note_str
         if "otp" in note:
-            return "otp_latency_timeout", 0.88, {"detected_intent": "otp_delivery_failure", "signals_used": ["customer_note_otp"], "provider": "rule_fallback"}
-        if "cut" in note or "debit" in note or "kat" in note or "paise" in note:
-            return "customer_dispute_or_charged_unconfirmed", 0.92, {"detected_intent": "money_deducted_unconfirmed", "signals_used": ["hinglish_debit_keywords"], "provider": "rule_fallback"}
-        if "expired" in note:
-            return "card_expired", 0.95, {"detected_intent": "card_expiry_reported", "signals_used": ["customer_note_expiry"], "provider": "rule_fallback"}
-        if "discount" in note or "chhod" in note:
-            return "price_sensitive_abandonment", 0.89, {"detected_intent": "coupon_dropoff", "signals_used": ["cart_coupon_note"], "provider": "rule_fallback"}
+            res = ("otp_latency_timeout", 0.88, {"detected_intent": "otp_delivery_failure", "signals_used": ["customer_note_otp"], "provider": "rule_fallback"})
+        elif "cut" in note or "debit" in note or "kat" in note or "paise" in note:
+            res = ("customer_dispute_or_charged_unconfirmed", 0.92, {"detected_intent": "money_deducted_unconfirmed", "signals_used": ["hinglish_debit_keywords"], "provider": "rule_fallback"})
+        elif "expired" in note:
+            res = ("card_expired", 0.95, {"detected_intent": "card_expiry_reported", "signals_used": ["customer_note_expiry"], "provider": "rule_fallback"})
+        elif "discount" in note or "chhod" in note:
+            res = ("price_sensitive_abandonment", 0.89, {"detected_intent": "coupon_dropoff", "signals_used": ["cart_coupon_note"], "provider": "rule_fallback"})
+        else:
+            res = ("technical_unknown_error", 0.65, {"detected_intent": "unclassified_ambiguity", "signals_used": ["fallback_classifier"], "provider": "rule_fallback"})
 
-        return "technical_unknown_error", 0.65, {"detected_intent": "unclassified_ambiguity", "signals_used": ["fallback_classifier"], "provider": "rule_fallback"}
+        _DIAGNOSIS_CACHE[cache_key] = res
+        return res
 
     async def diagnose_single_case(self, case_id: int) -> Optional[Diagnosis]:
         case = await self.session.get(RecoveryCase, case_id)

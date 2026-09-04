@@ -12,7 +12,8 @@ class Settings(BaseSettings):
     GROQ_API_KEY: Optional[str] = None
     GEMINI_API_KEY: Optional[str] = None
     
-    GROQ_MODEL: str = "llama-3.3-70b-versatile"
+    GROQ_MODEL: str = "groq/compound-mini"
+    GEMINI_MODEL: str = "gemini-2.5-flash"
     
     RAZORPAY_KEY_ID: Optional[str] = "rzp_test_mock_key"
     RAZORPAY_KEY_SECRET: Optional[str] = "rzp_test_mock_secret"

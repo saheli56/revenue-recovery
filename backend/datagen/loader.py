@@ -66,6 +66,11 @@ async def load_synthetic_batch_into_db(dataset_path: str = None, clear_existing:
 
     async with async_session_factory() as session:
         if clear_existing:
+            try:
+                from orchestrator.pipeline_runner import invalidate_batch_cache
+                invalidate_batch_cache()
+            except ImportError:
+                pass
             await session.execute(delete(Outcome))
             await session.execute(delete(Execution))
             await session.execute(delete(Decision))

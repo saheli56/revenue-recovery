@@ -14,7 +14,7 @@ from models import RecoveryCase, AuditLog, CaseType
 from schemas import RecoveryCaseResponse, CaseTraceResponse
 from pipeline.auditor import AuditorService
 from datagen.loader import load_synthetic_batch_into_db
-from orchestrator.pipeline_runner import BatchOrchestrator
+from orchestrator.pipeline_runner import BatchOrchestrator, invalidate_batch_cache
 from api.auth import verify_api_key
 
 router = APIRouter(prefix="/cases", tags=["Cases"])
@@ -56,6 +56,7 @@ async def ingest_case(
             detail=f"Case with source_reference '{req.source_reference}' already exists"
         )
 
+    invalidate_batch_cache()
     now = datetime.now(timezone.utc)
     case = RecoveryCase(
         case_type=req.case_type,
@@ -101,6 +102,7 @@ async def trigger_batch_run(
 ):
     try:
         if req.seed_fresh:
+            invalidate_batch_cache()
             await load_synthetic_batch_into_db(clear_existing=True)
 
         orchestrator = BatchOrchestrator(max_concurrency=min(req.concurrency, 10))
