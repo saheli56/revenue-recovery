@@ -12,13 +12,10 @@ from pipeline.detector import DetectorService
 from pipeline.diagnoser import DiagnoserService
 from pipeline.strategist import StrategistService
 from pipeline.executor import ExecutorService
+import asyncio
 from pipeline.tracker import OutcomeTrackerService
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    
+async def _background_initial_warmup():
     try:
         await load_synthetic_batch_into_db(clear_existing=False)
         async with async_session_factory() as session:
@@ -36,8 +33,16 @@ async def lifespan(app: FastAPI):
             
             tracker = OutcomeTrackerService(session)
             await tracker.run_tracker_batch()
-    except Exception:
-        pass
+    except Exception as exc:
+        print(f"Background warmup error: {exc}")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    
+    # Launch warmup in background so Uvicorn binds to the PORT immediately on deployment
+    asyncio.create_task(_background_initial_warmup())
         
     yield
     await engine.dispose()

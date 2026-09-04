@@ -17,4 +17,6 @@ services:
       - key: GLOBAL_KILL_SWITCH
         value: "false"
       - key: GROQ_MODEL
-        value: llama-3.3-70b-versatile
+        value: groq/compound-mini
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
